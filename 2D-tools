@@ -1,0 +1,4059 @@
+set cut_paste_input [stack 0]
+version 11.3 v6
+push $cut_paste_input
+Group {
+ name Exponential_Glow
+ help "This gizmo is a port of Stuart Lashley's popular Exponential Glow macro from Shake. Will glow the highs on the input and create a nice falloff. Main dependency with Viewer has been removed so should be ok in stereo/mono views."
+ selected true
+ xpos 3558
+ ypos 1002
+ addUserKnob {20 User l "Exponential Glow"}
+ addUserKnob {41 falloff l Falloff T ExpoGlow.falloff}
+ addUserKnob {7 intensity l Intensity R 0 10}
+ intensity 1
+ addUserKnob {41 blur_amount l Size T ExpoGlow.blur_amount}
+ addUserKnob {41 add_source l "Add Source" T ExpoGlow.add_source}
+ addUserKnob {6 cropformat l "Crop to format" +STARTLINE}
+ addUserKnob {26 info l INVISIBLE +INVISIBLE T "Ported from Shake by brad-f"}
+}
+ Input {
+  inputs 0
+  name Input1
+  selected true
+  xpos -239
+  ypos -731
+ }
+ NoOp {
+  name ExpoGlow
+  selected true
+  xpos -239
+  ypos -607
+  addUserKnob {20 User}
+  addUserKnob {7 falloff l Falloff R 0 2}
+  falloff 1
+  addUserKnob {7 intensity l Intensity R 0 5}
+  intensity {{parent.intensity*10}}
+  addUserKnob {7 blur_amount l Size R 0 5}
+  blur_amount 1
+  addUserKnob {6 add_source l "Add Source" +STARTLINE}
+  add_source true
+  addUserKnob {6 add_bbox l "Add original bbox" +STARTLINE}
+ }
+set N50c09bc0 [stack 0]
+ Dot {
+  name Dot12
+  selected true
+  xpos -342
+  ypos -602
+ }
+push $N50c09bc0
+ Dot {
+  name Dot11
+  selected true
+  xpos -31
+  ypos -602
+ }
+ Keyer {
+  operation "luminance key"
+  name Keyer1
+  selected true
+  xpos 43
+  ypos -472
+ }
+ Premult {
+  name Premult1
+  selected true
+  xpos 21
+  ypos -409
+ }
+ Remove {
+  operation keep
+  channels rgb
+  name Remove1
+  selected true
+  xpos 12
+  ypos -365
+ }
+ Grade {
+  white {{ExpoGlow.intensity/100 i}}
+  name Grade1
+  selected true
+  xpos 36
+  ypos -321
+ }
+ Dot {
+  name Dot3
+  selected true
+  xpos -31
+  ypos -198
+ }
+set N7401db80 [stack 0]
+ Dot {
+  name Dot2
+  selected true
+  xpos 79
+  ypos -198
+ }
+set N80d15800 [stack 0]
+ Dot {
+  name Dot4
+  selected true
+  xpos 199
+  ypos -198
+ }
+set N7d817920 [stack 0]
+ Dot {
+  name Dot5
+  selected true
+  xpos 309
+  ypos -198
+ }
+set N8eb1cb60 [stack 0]
+ Dot {
+  name Dot6
+  selected true
+  xpos 419
+  ypos -198
+ }
+set N73c1c8d0 [stack 0]
+ Dot {
+  name Dot7
+  selected true
+  xpos 529
+  ypos -198
+ }
+set Na7ffcae0 [stack 0]
+ Dot {
+  name Dot8
+  selected true
+  xpos 639
+  ypos -198
+ }
+set N6d41ae60 [stack 0]
+ Dot {
+  name Dot9
+  selected true
+  xpos 746
+  ypos -198
+ }
+set N55300040 [stack 0]
+ Dot {
+  name Dot10
+  selected true
+  xpos 856
+  ypos -198
+ }
+ Group {
+  name ShakePercentBlur8
+  selected true
+  xpos 753
+  ypos -29
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur7.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply8.value/ExpoGlow.falloff i}}
+  name Multiply9
+  selected true
+  xpos 230
+  ypos 494
+ }
+push $N55300040
+ Group {
+  name ShakePercentBlur7
+  selected true
+  xpos 627
+  ypos -32
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur6.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply7.value/ExpoGlow.falloff i}}
+  name Multiply8
+  selected true
+  xpos 106
+  ypos 366
+ }
+push $N6d41ae60
+ Group {
+  name ShakePercentBlur6
+  selected true
+  xpos 511
+  ypos -11
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur5.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply6.value/ExpoGlow.falloff i}}
+  name Multiply7
+  selected true
+  xpos 117
+  ypos 279
+ }
+push $Na7ffcae0
+ Group {
+  name ShakePercentBlur5
+  selected true
+  xpos 401
+  ypos -31
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur4.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply5.value/ExpoGlow.falloff i}}
+  name Multiply6
+  selected true
+  xpos 40
+  ypos 209
+ }
+push $N73c1c8d0
+ Group {
+  name ShakePercentBlur4
+  selected true
+  xpos 288
+  ypos -26
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur3.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply4.value/ExpoGlow.falloff i}}
+  name Multiply5
+  selected true
+  xpos -9
+  ypos 145
+ }
+push $N8eb1cb60
+ Group {
+  name ShakePercentBlur3
+  selected true
+  xpos 185
+  ypos 9
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur2.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply3.value/ExpoGlow.falloff i}}
+  name Multiply4
+  selected true
+  xpos -165
+  ypos 127
+ }
+push $N7d817920
+ Group {
+  name ShakePercentBlur2
+  selected true
+  xpos 72
+  ypos -28
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur1.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply2.value/ExpoGlow.falloff i}}
+  name Multiply3
+  selected true
+  xpos -180
+  ypos 46
+ }
+push $N80d15800
+ Group {
+  name ShakePercentBlur1
+  selected true
+  xpos -95
+  ypos -25
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ShakePercentBlur.xpercent*2 i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  value {{Multiply1.value/ExpoGlow.falloff i}}
+  name Multiply2
+  selected true
+  xpos -239
+  ypos -4
+ }
+push $N50c09bc0
+push $N7401db80
+ Group {
+  name ShakePercentBlur
+  selected true
+  xpos -180
+  ypos -84
+  addUserKnob {20 percentBlur l "Percent Blur"}
+  addUserKnob {41 xpercent l xPercent T Blur120.xpercent}
+  addUserKnob {41 ypercent l yPercent T Blur120.ypercent}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 514
+   ypos -229
+  }
+  Blur {
+   size {{width/3*(xpercent/100) x1001 6.826666667e+10} {height/3*(ypercent/100)}}
+   crop false
+   name Blur120
+   xpos 514
+   ypos -189
+   addUserKnob {20 User}
+   addUserKnob {7 xpercent l xPercent R 0 100}
+   xpercent {{ExpoGlow.blur_amount i}}
+   addUserKnob {7 ypercent l yPercent R 0 100}
+   ypercent {{xpercent/format.pixel_aspect/height*width}}
+  }
+  Output {
+   name Output1
+   xpos 514
+   ypos -89
+  }
+ end_group
+ Multiply {
+  name Multiply1
+  selected true
+  xpos -328
+  ypos -91
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  selected true
+  xpos -490
+  ypos -75
+  disable {{!ExpoGlow.add_source i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  selected true
+  xpos -371
+  ypos 34
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge3
+  selected true
+  xpos -318
+  ypos 104
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge4
+  selected true
+  xpos -283
+  ypos 199
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge5
+  selected true
+  xpos -142
+  ypos 245
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge6
+  selected true
+  xpos -118
+  ypos 309
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge7
+  selected true
+  xpos -118
+  ypos 395
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge8
+  selected true
+  xpos -30
+  ypos 458
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge9
+  selected true
+  xpos 22
+  ypos 583
+ }
+ Crop {
+  box {0 0 {width i} {height i}}
+  name Crop1
+  selected true
+  xpos -273
+  ypos 713
+  disable {{!(parent.cropformat) i}}
+ }
+ Output {
+  name Output1
+  selected true
+  xpos -239
+  ypos 781
+ }
+end_group
+push $cut_paste_input
+Group {
+ name ErodeFran
+ selected true
+ xpos 3562
+ ypos 1212
+ addUserKnob {20 User}
+ addUserKnob {41 size T Blur2.size}
+ addUserKnob {41 gamma T Grade3.gamma}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 463
+  ypos -595
+ }
+ Blur {
+  channels alpha
+  size 10
+  name Blur2
+  xpos 463
+  ypos -555
+ }
+ Grade {
+  channels alpha
+  gamma 0.2
+  black_clamp false
+  name Grade3
+  xpos 463
+  ypos -517
+ }
+ Output {
+  name Output1
+  xpos 463
+  ypos -417
+ }
+end_group
+push $cut_paste_input
+NoOp {
+ name Roto_To_Transform
+ selected true
+ xpos 3566
+ ypos 1314
+ addUserKnob {20 User}
+ addUserKnob {3 frm l "Start Frame"}
+ frm 1001
+ addUserKnob {22 aaaa l "   Create Transform   " -STARTLINE T "ofs = nuke.thisNode()\['frm'].value()\npx='\{curve '\npy='\{curve '\nfor layer in nuke.thisNode().input(0)\['curves'].rootLayer:\n    for idx,point in enumerate(layer):\n        x = point.center.getPositionAnimCurve(0)\n        y = point.center.getPositionAnimCurve(1)\n        px += ' x\{\} \{\}'.format(ofs+idx, x.evaluateY(0))\n        py += ' x\{\} \{\}'.format(ofs+idx, y.evaluateY(0))\npx+='\} '+py+'\}'\n\nt= nuke.nodes.Transform()\nt\['translate'].fromScript(px)"}
+}
+Group {
+ inputs 0
+ name mMerge
+ tile_color 0x495abaff
+ selected true
+ xpos 3569
+ ypos 1390
+ addUserKnob {20 mMerge l mMerge2}
+ addUserKnob {22 method_over l over T "k = nuke.thisNode()\nk\['operation'].setValue('over')\nk\['bbox'].setValue('union')\nk\['tile_color'].setValue(1230682879)" +STARTLINE}
+ addUserKnob {22 method_under l under -STARTLINE T "k = nuke.thisNode()\nk\['operation'].setValue('under')\nk\['bbox'].setValue('union')\nk\['tile_color'].setValue(1230682879)"}
+ addUserKnob {22 method_outside l stencil -STARTLINE T "k = nuke.thisNode()\nk\['operation'].setValue('stencil')\nk\['bbox'].setValue('B')\nk\['tile_color'].setValue(324566271)"}
+ addUserKnob {22 method_inside l mask -STARTLINE T "k = nuke.thisNode()\nk\['operation'].setValue('mask')\nk\['bbox'].setValue('A')\nk\['tile_color'].setValue(324566271)"}
+ addUserKnob {26 div l "" +STARTLINE}
+ addUserKnob {41 operation T Merge6.operation}
+ addUserKnob {41 sRGB l "Video colorspace" -STARTLINE T Merge6.sRGB}
+ addUserKnob {41 screen_alpha l "alpha masking" -STARTLINE T Merge6.screen_alpha}
+ addUserKnob {41 bbox l "set bbox to " T Merge6.bbox}
+ addUserKnob {41 metainput l "metadata from" -STARTLINE T Merge6.metainput}
+ addUserKnob {26 ""}
+ addUserKnob {41 Achannels l "A channels" T Merge6.Achannels}
+ addUserKnob {41 Bchannels l "B channels" T Merge6.Bchannels}
+ addUserKnob {41 output T Merge6.output}
+ addUserKnob {41 also_merge l "also merge" T Merge6.also_merge}
+ addUserKnob {41 maskChannelMask l mask -STARTLINE T Merge6.maskChannelMask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Merge6.maskChannelInput}
+ addUserKnob {41 inject -STARTLINE T Merge6.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge6.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T Merge6.fringe}
+ addUserKnob {41 mix T Merge6.mix}
+}
+ Input {
+  inputs 0
+  name A
+  xpos 260
+  ypos 290
+  number 1
+ }
+set Nc1ef1790 [stack 0]
+ Input {
+  inputs 0
+  name B
+  xpos 860
+  ypos 290
+ }
+set Nc1ef61f0 [stack 0]
+push $Nc1ef1790
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  metainput All
+  also_merge all
+  mix 0
+  name Merge1
+  xpos 407
+  ypos 490
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox2
+  xpos 260
+  ypos 690
+ }
+push $Nc1ef61f0
+push $Nc1ef1790
+push $Nc1ef61f0
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  metainput All
+  also_merge all
+  mix 0
+  name Merge2
+  selected true
+  xpos 707
+  ypos 488
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 860
+  ypos 690
+ }
+ Merge2 {
+  inputs 2
+  also_merge all
+  maskChannelMask -rgba.alpha
+  name Merge6
+  xpos 560
+  ypos 690
+ }
+ Output {
+  name Output1
+  xpos 560
+  ypos 890
+ }
+end_group
+push $cut_paste_input
+Group {
+ name FrameMedian
+ tile_color 0x2f66ff
+ selected true
+ xpos 3572
+ ypos 1474
+ addUserKnob {20 User}
+ addUserKnob {26 ""}
+ addUserKnob {4 Method l "Calculation Method" M {"Frame Range" "Specified Frames" "" ""}}
+ addUserKnob {26 FrameRange_line l "<b><font color=#70EE70>Frame Range</font><b>"}
+ addUserKnob {7 MaxFrames l "Sample Frames" R 1 20}
+ MaxFrames 15
+ addUserKnob {3 FramesFrom l "Frame Range From"}
+ FramesFrom 1
+ addUserKnob {3 Frames l To -STARTLINE}
+ Frames 100
+ addUserKnob {26 devider_specframe l "<b><font color=#70EE70>Specified Frames</font><b>"}
+ addUserKnob {1 frame_list l frames}
+ frame_list "\[43, 53, 63, 73, 83]"
+ addUserKnob {22 ToggleFrame l "Toggle Frame" T "tempval = nuke.thisNode().knob(\"frame_list\").value()\ntempval = eval(tempval)\nfound = False\nfor index, item in enumerate(tempval):\n    if item==nuke.frame():\n        tempval.pop(index)\n        found = True\n        break\nif not found:\n        tempval.append(nuke.frame()) \ntempval.sort()\nnuke.thisNode().knob(\"frame_list\").setValue(str(tempval))" +STARTLINE}
+ addUserKnob {22 clear l Clear -STARTLINE T "nuke.thisNode().knob(\"frame_list\").setValue(\"\[]\")"}
+ addUserKnob {26 Help}
+ addUserKnob {26 Info l "" -STARTLINE T "The input plate must be stabelized before running this node.\n\n\[Frame Range]\nA: Set the frame range to the desidred input frame range\nB: Set the number of frames you want to sample from.\n\n\[Specified Frames]\nA: Go to a frame that you want to include and hit \"Toggle Frame\".\n(If you want to remove a frame, just go to that frame and hit \n\"Toggle Frame\" again.)"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -634
+  ypos -250
+ }
+set N5ac03190 [stack 0]
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_19
+  xpos 237
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_18
+  xpos 119
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_17
+  xpos 17
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_16
+  xpos -93
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_15
+  xpos -203
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_14
+  xpos -313
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_13
+  xpos -423
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_12
+  xpos -533
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_11
+  xpos -643
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_10
+  xpos -753
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_9
+  xpos -863
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_8
+  xpos -973
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_7
+  xpos -1083
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_6
+  xpos -1193
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_5
+  xpos -1303
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[int(nuke.thisNode().name().split(\"_\")\[1])]\}]"}}
+  name TO_4
+  xpos -1413
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[int(nuke.thisNode().name().split(\"_\")\[1])]\}]"}}
+  name TO_3
+  xpos -1523
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[int(nuke.thisNode().name().split(\"_\")\[1])]\}]"}}
+  name TO_2
+  xpos -1633
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[int(nuke.thisNode().name().split(\"_\")\[1])]\}]"}}
+  name TO_1
+  xpos -1743
+  ypos -112
+ }
+push $N5ac03190
+ FrameHold {
+  first_frame {{"parent.Method==0?floor(parent.FramesFrom+(((parent.Frames-parent.FramesFrom)/parent.MaxFrames)*\[lindex \[split \[value name] _] 1])):\[python \{eval(nuke.thisParent().knob(\"frame_list\").value())\[min(len(eval(nuke.thisParent().knob(\"frame_list\").value()))-1,int(nuke.thisNode().name().split(\"_\")\[1]))]\}]"}}
+  name TO_0
+  xpos -1868
+  ypos -112
+ }
+ BlinkScript {
+  inputs 20
+  ProgramGroup 1
+  KernelDescription "1 \"CleanPlater\" iterate componentWise e23f2c1acd3c540d820e06225fe9058ef919b69ea31e669235276c5ae236c0a7 21 \"src1\" Read Point \"src2\" Read Point \"src3\" Read Point \"src4\" Read Point \"src5\" Read Point \"src6\" Read Point \"src7\" Read Point \"src8\" Read Point \"src9\" Read Point \"src10\" Read Point \"src11\" Read Point \"src12\" Read Point \"src13\" Read Point \"src14\" Read Point \"src15\" Read Point \"src16\" Read Point \"src17\" Read Point \"src18\" Read Point \"src19\" Read Point \"src20\" Read Point \"dst\" Write Point 1 \"Frames\" Int 1 AQAAAA=="
+  kernelSource "kernel CleanPlater : ImageComputationKernel<eComponentWise>\n\{\n  Image<eRead, eAccessPoint, eEdgeClamped> src1; \n  Image<eRead, eAccessPoint, eEdgeClamped> src2;\n  Image<eRead, eAccessPoint, eEdgeClamped> src3;  \n  Image<eRead, eAccessPoint, eEdgeClamped> src4;\n  Image<eRead, eAccessPoint, eEdgeClamped> src5;\n  Image<eRead, eAccessPoint, eEdgeClamped> src6;\n  Image<eRead, eAccessPoint, eEdgeClamped> src7; \n  Image<eRead, eAccessPoint, eEdgeClamped> src8;\n  Image<eRead, eAccessPoint, eEdgeClamped> src9; \n  Image<eRead, eAccessPoint, eEdgeClamped> src10;\n  Image<eRead, eAccessPoint, eEdgeClamped> src11; \n  Image<eRead, eAccessPoint, eEdgeClamped> src12;\n  Image<eRead, eAccessPoint, eEdgeClamped> src13;  \n  Image<eRead, eAccessPoint, eEdgeClamped> src14;\n  Image<eRead, eAccessPoint, eEdgeClamped> src15;\n  Image<eRead, eAccessPoint, eEdgeClamped> src16;\n  Image<eRead, eAccessPoint, eEdgeClamped> src17; \n  Image<eRead, eAccessPoint, eEdgeClamped> src18;\n  Image<eRead, eAccessPoint, eEdgeClamped> src19; \n  Image<eRead, eAccessPoint, eEdgeClamped> src20;\n  Image<eWrite> dst;\n  param:\n    int frames;\n  void define() \{\n    defineParam(frames, \"Frames\", 1);\n  \}\n  void process() \{\n    float values\[] = \{src1(),src2(),src3(),src4(),src5(),src6(),src7(),src8(),src9(),src10(),src11(),src12(),src13(),src14(),src15(),src16(),src17(),src18(),src19(),src20(),\};\n    float outputS = median(values,  frames);\n    dst() = outputS;\n   \}\n\};"
+  useGPUIfAvailable false
+  vectorize false
+  rebuild ""
+  CleanPlater_Frames {{"parent.Method==0?parent.MaxFrames:\[python \{len(eval(nuke.thisParent().knob(\"frame_list\").value()))\}]"}}
+  rebuild_finalise ""
+  name BlinkScript3
+  xpos -643
+  ypos 80
+ }
+ Output {
+  name Output1
+  xpos -643
+  ypos 144
+ }
+end_group
+push $cut_paste_input
+Group {
+ name DeadsetEdge
+ tile_color 0x8f4951ff
+ gl_color 0x8d5a61ff
+ note_font "Bitstream Vera Sans Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ selected true
+ xpos 3586
+ ypos 1591
+ addUserKnob {20 Edge}
+ addUserKnob {26 edges l "" +STARTLINE T "<h3>Deadset</b><i><b><span style=\"color:rgb(143,73,81)\">Edge"}
+ addUserKnob {26 Description l "" -STARTLINE T .}
+ addUserKnob {26 blurst l " " T " "}
+ addUserKnob {14 PushEdge l "<b>PUSH</b> Edge" t "Scales out each edge individually in the corresponding direction while maintaining detail. Uses LevelSet motion pass to drive iDistort." R 0 30}
+ PushEdge 4
+ addUserKnob {14 SmoothEdge l "<b>SMOOTH</b> Edge" t "Blurs Motion channel driving edge direction. removes artifacts & makes direction transitions smoother." R 0 30}
+ SmoothEdge 4
+ addUserKnob {26 ""}
+ addUserKnob {4 Undersampling l <b>Undersampling t "Determines the resolution that the vectors for the extend are calculated at. 1:1 giving extreme detail but slow output 1:32 sacrificing some quality for instant results " M {1:1 1:2 1:4 1:8 1:16 1:32 "" "" "" "" "" ""}}
+ Undersampling 1:4
+ addUserKnob {6 ShowExtend l "Show Original Matte Outline" +STARTLINE}
+ addUserKnob {6 Alphaspit l "Give Deadset Alpha" t "This will spit out the expanded alpha instead of the input alpha " +STARTLINE}
+ addUserKnob {6 Invert l "Invert Direction" t "Inverts matte input & generates opposite to pull result inward " +STARTLINE}
+ addUserKnob {26 flip l "" +STARTLINE T "                                  (╯°□°)╯ ┻━┻) "}
+ addUserKnob {20 Info}
+ addUserKnob {26 info l "\n" -STARTLINE T "To avoid edges being brighter than your future. \n\nA tool that uses levelset to create a vector pass based on individual edge direction,\nproviding much more accurate edge extend results.\n\n'It was the best of nodes, it was the blurst of nodes'\n"}
+ addUserKnob {26 morespace l " " T " "}
+ addUserKnob {20 infogroup l "The Entire Written History of DeadsetEdge" n 1}
+ infogroup 0
+ addUserKnob {26 version_history l " " T "v0.9     31/07/2018\n           - Sick of ColorDilate\nv0.9.1   10/10/2018\n            - Added Autocrop feature to speed up motion calculation \nv0.9.2   16/10/2018\n            - Added edge operation feature with a dropdown to merge texture \n              through the extended edge in various ways\nv0.9.3   18/12/2018\n            - Added feature to manually override the bbox via input \n            - Added option to export extended alpha instead of input alpha \nv0.9.4    21/12/2018\n            - Added undersampling option which allows this node to not be sluggish\nv1.0      21/12/2018\n            - Now masks by effect opposed to result\n            - Invert effect option added\n            - After undersampling was added, bbox options were removed to avoid cluster "}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Inputmatte
+  xpos 891
+  ypos -1392
+  number 1
+ }
+ Invert {
+  channels alpha
+  name Invert4
+  xpos 891
+  ypos -1315
+  disable {{parent.Invert-1}}
+ }
+ Dot {
+  name Dot2
+  label "Input Matte"
+  note_font "Bitstream Vera Sans Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 31
+  xpos 927
+  ypos -1095
+ }
+set N59affe10 [stack 0]
+ AddChannels {
+  channels alpha
+  name NoError1
+  tile_color 0xffffffff
+  xpos 891
+  ypos -1053
+ }
+ Input {
+  inputs 0
+  name Inputsource
+  xpos 451
+  ypos -1391
+ }
+ Dot {
+  name Dot13
+  label "Input Source"
+  note_font "Bitstream Vera Sans Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 31
+  xpos 484
+  ypos -1119
+ }
+ AddChannels {
+  channels alpha
+  name NoError
+  tile_color 0xffffffff
+  xpos 457
+  ypos -1063
+ }
+ Dot {
+  name Dot14
+  xpos 484
+  ypos -990
+ }
+set N597ff050 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  bbox A
+  name Copy2
+  xpos 891
+  ypos -999
+ }
+ Dot {
+  name Dot15
+  selected true
+  xpos 927
+  ypos -925
+ }
+set N59705ef0 [stack 0]
+ Dot {
+  name Dot11
+  xpos 927
+  ypos -132
+ }
+set N5aafeba0 [stack 0]
+ Input {
+  inputs 0
+  name Inputmask
+  xpos 1124
+  ypos -160
+  number 2
+ }
+ Invert {
+  channels alpha
+  name Invert5
+  xpos 1330
+  ypos -160
+ }
+push $N59705ef0
+ Dot {
+  name Dot16
+  xpos 1541
+  ypos -925
+ }
+set N59bfbfa0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1870
+  ypos -925
+ }
+set N59c00bb0 [stack 0]
+ Remove {
+  name Remove3
+  xpos 1837
+  ypos -240
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  out motion
+  name Shuffle5
+  xpos 1837
+  ypos -202
+ }
+ Dot {
+  name Dot35
+  xpos 1870
+  ypos -150
+ }
+push $N59bfbfa0
+ Dot {
+  name Dot1
+  xpos 1541
+  ypos -844
+ }
+set N10349dc0 [stack 0]
+ Reformat {
+  type scale
+  scale 0.03125
+  pbb true
+  name Reformat10
+  label 32
+  xpos 1038
+  ypos -711
+ }
+push $N10349dc0
+ Reformat {
+  type scale
+  scale 0.0625
+  pbb true
+  name Reformat7
+  label 16
+  xpos 1170
+  ypos -711
+ }
+push $N10349dc0
+ Reformat {
+  type scale
+  scale 0.125
+  pbb true
+  name Reformat6
+  label 8
+  xpos 1299
+  ypos -711
+ }
+push $N10349dc0
+ Reformat {
+  type scale
+  scale 0.25
+  pbb true
+  name Reformat1
+  label quarter
+  xpos 1437
+  ypos -711
+ }
+push $N10349dc0
+ Reformat {
+  type scale
+  scale 0.5
+  pbb true
+  name Reformat4
+  label half
+  xpos 1568
+  ypos -711
+ }
+push $N10349dc0
+ Dot {
+  name Dot31
+  label Fullres
+  xpos 1778
+  ypos -711
+ }
+ Switch {
+  inputs 6
+  which {{"parent.Undersampling "}}
+  name Down
+  xpos 1515
+  ypos -591
+ }
+ LevelSet {
+  name LevelSet3
+  tile_color 0xffbf00ff
+  xpos 1515
+  ypos -528
+ }
+ Dot {
+  name Dot34
+  xpos 1548
+  ypos -460
+ }
+set N45fd2780 [stack 0]
+ Reformat {
+  type scale
+  scale 32
+  pbb true
+  name Reformat9
+  label 32
+  xpos 1038
+  ypos -409
+ }
+push $N45fd2780
+ Reformat {
+  type scale
+  scale 16
+  pbb true
+  name Reformat8
+  label 16
+  xpos 1170
+  ypos -409
+ }
+push $N45fd2780
+ Reformat {
+  type scale
+  scale 8
+  pbb true
+  name Reformat5
+  label 8
+  xpos 1299
+  ypos -409
+ }
+push $N45fd2780
+ Reformat {
+  type scale
+  scale 4
+  pbb true
+  name Reformat3
+  label quarter
+  xpos 1437
+  ypos -409
+ }
+push $N45fd2780
+ Reformat {
+  type scale
+  scale 2
+  pbb true
+  name Reformat2
+  label half
+  xpos 1568
+  ypos -409
+ }
+push $N45fd2780
+ Dot {
+  name Dot32
+  label Fullres
+  xpos 1778
+  ypos -409
+ }
+ Switch {
+  inputs 6
+  which {{"parent.Undersampling "}}
+  name Up
+  xpos 1503
+  ypos -328
+ }
+ Keymix {
+  inputs 3
+  channels motion
+  name Keymix2
+  xpos 1503
+  ypos -160
+ }
+ Dot {
+  name Dot36
+  xpos 1536
+  ypos -77
+ }
+ Shuffle {
+  in motion
+  out rgb
+  name Shuffle2
+  label "\[value in]"
+  xpos 1123
+  ypos -86
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  Bchannels motion
+  output motion
+  name Merge4
+  label "\[value mix]"
+  xpos 893
+  ypos -93
+ }
+ Blur {
+  channels motion
+  size {{parent.SmoothEdge} {parent.SmoothEdge}}
+  filter triangle
+  name Blur
+  xpos 893
+  ypos -11
+ }
+push $N5aafeba0
+push $N597ff050
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy7
+  xpos 448
+  ypos -141
+ }
+ Copy {
+  inputs 2
+  channels motion
+  bbox A
+  name Copy3
+  xpos 448
+  ypos -18
+ }
+ IDistort {
+  channels rgba
+  uv motion
+  uv_scale {{parent.PushEdge} {parent.PushEdge}}
+  name IDistort1
+  xpos 445
+  ypos 123
+ }
+set N1704fbb0 [stack 0]
+ Dot {
+  name Dot30
+  xpos 1186
+  ypos 127
+ }
+push $N59affe10
+ Dot {
+  name Dot12
+  xpos 2168
+  ypos -1095
+ }
+ Dot {
+  name Dot28
+  xpos 2169
+  ypos 1304
+ }
+ Switch {
+  inputs 2
+  which {{parent.Alphaspit}}
+  name WhichAlpha
+  xpos 1153
+  ypos 1298
+ }
+push $N59c00bb0
+ Dot {
+  name Dot17
+  xpos 2026
+  ypos -925
+ }
+ Dot {
+  name Dot19
+  xpos 2026
+  ypos 404
+ }
+set N6027c120 [stack 0]
+ Dot {
+  name Dot7
+  xpos 2026
+  ypos 530
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {1 0 0 0}
+  color_panelDropped true
+  format {{{parent.input0.format}}}
+  name Constant1
+  label takeformat
+  xpos 680
+  ypos 248
+  postage_stamp false
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 680
+  ypos 519
+ }
+ Premult {
+  name Premult6
+  xpos 680
+  ypos 607
+ }
+set N6005b660 [stack 0]
+push $N6005b660
+ Merge2 {
+  inputs 2
+  operation xor
+  name Merge2
+  label "\[value mix]"
+  xpos 680
+  ypos 673
+ }
+ Grade {
+  white 2.5
+  black_clamp false
+  name Grade1
+  xpos 680
+  ypos 754
+ }
+ Blur {
+  channels rgba
+  size 1
+  name Blur1
+  xpos 680
+  ypos 835
+ }
+ Multiply {
+  name Multiply1
+  label "\[value value]"
+  xpos 680
+  ypos 911
+ }
+ HueShift {
+  hue_rotation 64
+  name HueShift1
+  xpos 350
+  ypos 925
+ }
+push $N1704fbb0
+ Dot {
+  name Dot27
+  xpos 484
+  ypos 247
+ }
+set N5fc2a2a0 [stack 0]
+ Dot {
+  name Dot20
+  xpos 193
+  ypos 247
+ }
+ Merge2 {
+  inputs 2
+  name Merge8
+  label "\[value mix]"
+  xpos 157
+  ypos 919
+ }
+ Remove {
+  operation keep
+  channels none
+  channels2 rgb
+  name Remove1
+  xpos 157
+  ypos 986
+ }
+ Dot {
+  name Dot5
+  xpos 190
+  ypos 1132
+ }
+push $N6027c120
+push $N5fc2a2a0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy4
+  xpos 448
+  ypos 394
+ }
+ Switch {
+  inputs 2
+  which {{parent.ShowExtend}}
+  name ShowExtend
+  xpos 448
+  ypos 1129
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  bbox B
+  name Copy8
+  xpos 448
+  ypos 1292
+ }
+ Output {
+  name Output1
+  xpos 448
+  ypos 1487
+ }
+end_group
+push $cut_paste_input
+Group {
+ name N_from_RGB
+ tile_color 0x21807bff
+ note_font_color 0xc6f9ffff
+ selected true
+ xpos 3577
+ ypos 1697
+ addUserKnob {20 User}
+ addUserKnob {41 bumpsize T NoOp5.bumpsize}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -1055
+  ypos 134
+ }
+ Clamp {
+  maximum_enable false
+  name Clamp1
+  xpos -1055
+  ypos 228
+ }
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace1
+  xpos -1055
+  ypos 282
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle1
+  label "<b>\[value in]</b> &rarr; \[value out]"
+  xpos -1055
+  ypos 317
+ }
+ Matrix {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  matrix {
+      {0 1 0}
+      {0 0 0}
+      {0 -1 0}
+    }
+  name Matrix9
+  xpos -1055
+  ypos 375
+ }
+ Matrix {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  matrix {
+      {0 0 0}
+      {-1 0 1}
+      {0 0 0}
+    }
+  name Matrix10
+  xpos -1055
+  ypos 408
+ }
+ Grade {
+  multiply {{parent.NoOp5.bumpsize}}
+  black_clamp false
+  name Grade176
+  xpos -1055
+  ypos 454
+ }
+ Expression {
+  expr0 isnan(r)?0:r
+  expr1 isnan(g)?0:g
+  expr2 isnan(b)?0:b
+  name Expression20
+  label antiNaN
+  selected true
+  xpos -1055
+  ypos 511
+ }
+ Output {
+  name Output1
+  xpos -1055
+  ypos 605
+ }
+ NoOp {
+  inputs 0
+  name NoOp5
+  xpos -915
+  ypos 455
+  addUserKnob {20 User}
+  addUserKnob {7 bumpsize R -4 4}
+  bumpsize -4
+ }
+end_group
+push $cut_paste_input
+Group {
+ name Chroma_Luma
+ tile_color 0x7f3f6fff
+ selected true
+ xpos 3550
+ ypos 942
+}
+ Input {
+  inputs 0
+  name Chroma
+  xpos -39
+  ypos 232
+  number 1
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace2
+  xpos -39
+  ypos 278
+ }
+ Input {
+  inputs 0
+  name Luma
+  xpos 190
+  ypos 135
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace1
+  xpos 190
+  ypos 187
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  alpha alpha2
+  name ShuffleCopy3
+  label "\[value in] to \[value out]"
+  xpos 190
+  ypos 272
+ }
+ Colorspace {
+  colorspace_in HSV
+  name Colorspace3
+  selected true
+  xpos 190
+  ypos 325
+ }
+ Output {
+  name Output1
+  xpos 190
+  ypos 410
+ }
+end_group
+push $cut_paste_input
+Group {
+ name RoughenEdges
+ help "Takes the alpha and distorts it using a random noise pattern. If you have a solid rotoshape which looks too smooth, this will give it a rough edge."
+ tile_color 0x88ddff
+ selected true
+ xpos 3581
+ ypos 1806
+ addUserKnob {20 User l "Edge Roughen"}
+ addUserKnob {41 noiseSize l "Noise size" t "Smaller number gives a fine, grainy edge. Large number gives blobbier edges." T Noise3.size}
+ addUserKnob {41 distortAmount l "Distort Amount" t "Low number barely effects the image, higher numbers increase the 'reach' of the effect, spreading the shape out further." T IDistort2.uv_scale}
+ addUserKnob {41 zoffset_1 l "Z Offset" T Noise3.zoffset}
+ addUserKnob {41 coreMix l "Core Mix back" t "To stop the effect eating into the shape too much, you can bring back the core." T Merge4.mix}
+ addUserKnob {7 eroder l "Pre Erode/Dilate" t "If the roughened edge spreads too far out of your intended area, this will erode the shape a little before the roughening is applied." R -5 5}
+ eroder 1.05
+ addUserKnob {41 blurSize l "Extra Blur" t "Adds a blur on the end." T Blur2.size}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 429
+  ypos -323
+ }
+ Dilate {
+  channels alpha
+  size {{parent.eroder}}
+  name Dilate2
+  xpos 429
+  ypos -282
+ }
+ Dot {
+  name Dot2
+  xpos 463
+  ypos -226
+ }
+set N16bf3fc0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 627
+  ypos -108
+ }
+ Dilate {
+  channels alpha
+  size -2.6
+  name Dilate1
+  xpos 593
+  ypos -76
+ }
+ Blur {
+  channels alpha
+  size 5
+  name Blur1
+  label "\[value size]"
+  xpos 593
+  ypos -5
+ }
+push $N16bf3fc0
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos 255
+  ypos -157
+ }
+ Noise {
+  size 2.5
+  zoffset 0.18
+  octaves 1
+  lacunarity 6.7
+  gain 0.96
+  center {960 540}
+  name Noise3
+  xpos 255
+  ypos -126
+ }
+push $N16bf3fc0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 forward.u
+  from1 rgba.alpha
+  to1 forward.v
+  name Copy3
+  xpos 429
+  ypos -137
+ }
+ IDistort {
+  channels alpha
+  uv {forward.u -forward.v}
+  uv_offset 0.28
+  uv_scale {{parent.IDistort2.uv_scale i}}
+  name IDistort1
+  xpos 429
+  ypos -77
+ }
+ IDistort {
+  channels alpha
+  uv {-forward.u forward.v}
+  uv_offset 0.0105
+  uv_scale 20.5
+  name IDistort2
+  xpos 429
+  ypos -16
+ }
+ Merge2 {
+  inputs 2
+  operation screen
+  mix 0
+  name Merge4
+  xpos 429
+  ypos 70
+ }
+set Na29a4e40 [stack 0]
+ Blur {
+  channels alpha
+  size 1.4
+  name Blur2
+  label "\[value size]"
+  xpos 429
+  ypos 133
+ }
+ Output {
+  name Output1
+  xpos 429
+  ypos 289
+ }
+push $Na29a4e40
+push 0
+ Viewer {
+  inputs 2
+  input_number 1
+  input_process false
+  name Viewer1
+  xpos 584
+  ypos -274
+ }
+end_group
+push $cut_paste_input
+Group {
+ name Colorswap
+ tile_color 0xffffffff
+ selected true
+ xpos 3558
+ ypos 1116
+ addUserKnob {20 User}
+ addUserKnob {6 lumavector_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {19 fromcolor l "from color" t "the color to replace\nchoose the strongest and most pure of this color, for example the center of a marker"}
+ fromcolor {1 0.25 0 0}
+ addUserKnob {6 fromcolor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 fromcolor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 fromcolor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {19 tocolor l "to color" t "the color to add instead"}
+ tocolor {0 0 1 0}
+ addUserKnob {6 tocolor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 tocolor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 tocolor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {20 Advlum l Advanced n 1}
+ addUserKnob {19 lumavector t "tweaking this may give better results\nby default make it white"}
+ lumavector {1 1 1 0}
+ addUserKnob {6 lumavector_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 lumavector_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {6 lumavector_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {41 which l rebalance t "This may give better color results on areas that are corrected wrong, but hasnt seemed to help much since version 3, use at own discretion" T Dissolve1.which}
+ addUserKnob {41 size l soften t "softening may remove some artifacts, but it will cause hues to bleed into one another on sharper edges. It might be better to use a median node instead." T Blur1.size}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 Crtext l "Ch correct"}
+ addUserKnob {26 colfills l "" +STARTLINE T "color fills"}
+ addUserKnob {3 fill l "fill length" t "This must be as large as your patches\nsmaller values should make the node slightly faster"}
+ fill 128
+ addUserKnob {6 premult +STARTLINE}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name input
+  xpos -309
+  ypos 427
+ }
+ Dot {
+  name Dot21
+  xpos -275
+  ypos 522
+ }
+set Na02237f0 [stack 0]
+ Dot {
+  name Dot16
+  xpos -275
+  ypos 1876
+ }
+set Na0228360 [stack 0]
+ Dot {
+  name Dot41
+  xpos -275
+  ypos 2047
+ }
+ Input {
+  inputs 0
+  name alpha
+  xpos -431
+  ypos 428
+  number 1
+ }
+ Dot {
+  name Dot18
+  xpos -397
+  ypos 562
+ }
+ Dot {
+  name Dot34
+  xpos -143
+  ypos 562
+ }
+push $Na02237f0
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy11
+  xpos -177
+  ypos 652
+ }
+set Na023fd70 [stack 0]
+ ColorMatrix {
+  matrix {
+      {{parent.tocolor.r-parent.fromcolor.r} {matrix.6*matrix.5-matrix.3*matrix.8} {parent.lumavector.r}}
+      {{parent.tocolor.g-parent.fromcolor.g} {matrix.0*matrix.8-matrix.2*matrix.6} {parent.lumavector.g}}
+      {{parent.tocolor.b-parent.fromcolor.b} {matrix.0*matrix.5-matrix.3*matrix.2} {parent.lumavector.b}}
+    }
+  invert true
+  name ColorMatrix2
+  xpos 21
+  ypos 704
+ }
+set Na02502e0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 55
+  ypos 1261
+ }
+set Na025d760 [stack 0]
+ Dot {
+  name Dot15
+  xpos 55
+  ypos 1611
+ }
+ Dot {
+  name Dot23
+  xpos 1803
+  ypos 1611
+ }
+set Nbaf08160 [stack 0]
+push $Na025d760
+ Dot {
+  name Dot2
+  xpos 356
+  ypos 1261
+ }
+set Nbaf0ccb0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 553
+  ypos 1261
+ }
+set Nbaf11840 [stack 0]
+ Dot {
+  name Dot5
+  xpos 746
+  ypos 1261
+ }
+set Nbaf163f0 [stack 0]
+ Dot {
+  name Dot10
+  xpos 928
+  ypos 1261
+ }
+set Nbaf1afd0 [stack 0]
+ Dot {
+  name Dot58
+  xpos 1120
+  ypos 1261
+ }
+set Nbaf1fb90 [stack 0]
+ Dot {
+  name Dot12
+  xpos 1362
+  ypos 1261
+ }
+set Nbaf24800 [stack 0]
+ Dot {
+  name Dot19
+  xpos 1544
+  ypos 1261
+ }
+set Nbaf293a0 [stack 0]
+ Dot {
+  name Dot20
+  xpos 1736
+  ypos 1261
+ }
+set Nbaf2df60 [stack 0]
+ Dot {
+  name Dot32
+  xpos 1904
+  ypos 1261
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {{parent.tocolor} {parent.tocolor} {parent.tocolor} {parent.tocolor}}
+  name Constant1
+  xpos 1969
+  ypos 1074
+ }
+ ColorMatrix {
+  matrix {
+      {{parent.tocolor.r-parent.fromcolor.r} {matrix.3*matrix.8-matrix.6*matrix.5} {parent.lumavector.r}}
+      {{parent.tocolor.g-parent.fromcolor.g} {matrix.0*matrix.8-matrix.2*matrix.6} {parent.lumavector.g}}
+      {{parent.tocolor.b-parent.fromcolor.b} {matrix.0*matrix.5-matrix.3*matrix.2} {parent.lumavector.b}}
+    }
+  invert true
+  name ColorMatrix1
+  xpos 1969
+  ypos 1146
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance16
+  xpos 1969
+  ypos 1378
+ }
+push $Nbaf2df60
+push $Na02502e0
+ Dilate {
+  channels alpha
+  size 1
+  name Dilate1
+  xpos 205
+  ypos 796
+ }
+set Nbaf5b9a0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 239
+  ypos 921
+ }
+ Dot {
+  name Dot8
+  xpos 373
+  ypos 921
+ }
+set Nbaf6b480 [stack 0]
+ Dot {
+  name Dot13
+  xpos 583
+  ypos 921
+ }
+set Nbaf70040 [stack 0]
+ Dot {
+  name Dot14
+  xpos 783
+  ypos 921
+ }
+set Nbaf74c00 [stack 0]
+ Dot {
+  name Dot17
+  xpos 978
+  ypos 921
+ }
+set Nbaf797c0 [stack 0]
+ Dot {
+  name Dot22
+  xpos 1198
+  ypos 921
+ }
+set Nbaf7e380 [stack 0]
+ Dot {
+  name Dot27
+  xpos 1396
+  ypos 921
+ }
+set Nbaf82f40 [stack 0]
+ Dot {
+  name Dot30
+  xpos 1585
+  ypos 921
+ }
+set Nbaf87b00 [stack 0]
+ Dot {
+  name Dot31
+  xpos 1779
+  ypos 921
+ }
+push $Na02502e0
+ Dot {
+  name Dot4
+  xpos 349
+  ypos 708
+ }
+push $Nbaf5b9a0
+ ChannelMerge {
+  inputs 2
+  operation stencil
+  name ChannelMerge7
+  xpos 315
+  ypos 790
+ }
+ Premult {
+  name Premult1
+  xpos 315
+  ypos 840
+ }
+ Dot {
+  name Dot11
+  xpos 471
+  ypos 844
+ }
+set N17078940 [stack 0]
+ Dot {
+  name Dot24
+  xpos 682
+  ypos 844
+ }
+set N1707d460 [stack 0]
+ Dot {
+  name Dot7
+  xpos 873
+  ypos 844
+ }
+set N17081fd0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 1084
+  ypos 844
+ }
+set N17086b60 [stack 0]
+ Dot {
+  name Dot25
+  xpos 1307
+  ypos 844
+ }
+set N1708b710 [stack 0]
+ Dot {
+  name Dot65
+  xpos 1489
+  ypos 844
+ }
+set N170902c0 [stack 0]
+ Dot {
+  name Dot68
+  xpos 1680
+  ypos 844
+ }
+set N17094ea0 [stack 0]
+ Dot {
+  name Dot69
+  xpos 1862
+  ypos 844
+ }
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 315
+  name DirBlurWrapper8
+  xpos 1828
+  ypos 969
+ }
+ Unpremult {
+  name Unpremult9
+  xpos 1828
+  ypos 1043
+ }
+ Dot {
+  name Dot73
+  xpos 1862
+  ypos 1122
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance15
+  xpos 1828
+  ypos 1380
+ }
+push $Nbaf293a0
+push $Nbaf87b00
+push $N17094ea0
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 270
+  name DirBlurWrapper7
+  xpos 1646
+  ypos 965
+ }
+ Unpremult {
+  name Unpremult8
+  xpos 1646
+  ypos 1043
+ }
+ Dot {
+  name Dot75
+  xpos 1680
+  ypos 1122
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance8
+  xpos 1646
+  ypos 1384
+ }
+push $Nbaf24800
+push $Nbaf82f40
+push $N170902c0
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 225
+  name DirBlurWrapper6
+  xpos 1455
+  ypos 971
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 1455
+  ypos 1043
+ }
+ Dot {
+  name Dot54
+  xpos 1489
+  ypos 1122
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance7
+  xpos 1455
+  ypos 1377
+ }
+push $Nbaf1fb90
+push $Nbaf7e380
+push $N1708b710
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 180
+  name DirBlurWrapper5
+  xpos 1273
+  ypos 972
+ }
+ Unpremult {
+  name Unpremult5
+  xpos 1273
+  ypos 1043
+ }
+ Dot {
+  name Dot26
+  xpos 1307
+  ypos 1122
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance6
+  xpos 1273
+  ypos 1385
+ }
+push $Nbaf1afd0
+push $Nbaf797c0
+push $N17086b60
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 135
+  name DirBlurWrapper4
+  xpos 1050
+  ypos 973
+ }
+ Unpremult {
+  name Unpremult7
+  xpos 1050
+  ypos 1043
+ }
+ Dot {
+  name Dot53
+  xpos 1084
+  ypos 1118
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance5
+  xpos 1050
+  ypos 1382
+ }
+push $Nbaf163f0
+push $Nbaf74c00
+push $N17081fd0
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 90
+  name DirBlurWrapper3
+  xpos 839
+  ypos 977
+ }
+ Unpremult {
+  name Unpremult6
+  xpos 839
+  ypos 1043
+ }
+ Dot {
+  name Dot39
+  xpos 873
+  ypos 1118
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance3
+  xpos 839
+  ypos 1378
+ }
+push $Nbaf11840
+push $Nbaf70040
+push $N1707d460
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  name DirBlurWrapper2
+  xpos 648
+  ypos 970
+ }
+ Unpremult {
+  name Unpremult4
+  xpos 648
+  ypos 1042
+ }
+ Dot {
+  name Dot28
+  xpos 682
+  ypos 1118
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance2
+  xpos 648
+  ypos 1370
+ }
+push $Nbaf0ccb0
+push $Nbaf6b480
+push $N17078940
+ DirBlurWrapper {
+  inputs 1+1
+  BlurType linear
+  BlurLayer rgba
+  BlurLength {{parent.fill}}
+  BlurAngle 0
+  name DirBlurWrapper1
+  xpos 437
+  ypos 968
+ }
+ Unpremult {
+  name Unpremult3
+  xpos 437
+  ypos 1043
+ }
+ Dot {
+  name Dot29
+  xpos 471
+  ypos 1118
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 dL
+  temp_expr0 (Ag-Bg)
+  temp_name1 dC
+  temp_expr1 (Ab-Bb)
+  temp_name2 dist
+  temp_expr2 sqrt(dL*dL+dC*dC)
+  expr0 Br
+  expr1 Bg
+  expr2 Bb
+  expr3 dist
+  name Distance
+  xpos 437
+  ypos 1366
+ }
+ Expression {
+  temp_name0 fall
+  temp_expr0 a+0.001
+  expr0 r/fall
+  expr1 g/fall
+  expr2 b/fall
+  expr3 1/fall
+  name Expression1
+  xpos 437
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb + Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff
+  xpos 648
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb + Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff7
+  xpos 839
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb + Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff8
+  xpos 1050
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb + Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff9
+  xpos 1273
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb +Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff10
+  xpos 1455
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb +Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff11
+  xpos 1646
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb +Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff12
+  xpos 1828
+  ypos 1472
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 fall
+  temp_expr0 Aa+0.001
+  expr0 "Br + Ar/fall"
+  expr1 "Bg + Ag/fall"
+  expr2 "Bb +Ab/fall"
+  expr3 "Ba + 1/fall"
+  name inversefalloff1
+  xpos 1969
+  ypos 1472
+ }
+ Expression {
+  expr0 r/a
+  expr1 g/a
+  expr2 b/a
+  name Normalize
+  xpos 1969
+  ypos 1525
+ }
+set N40627bf0 [stack 0]
+ MergeExpression {
+  inputs 2
+  expr0 Ag-Bg+Br
+  expr1 Ag
+  expr2 Ab
+  expr3 Aa
+  name rebalance
+  xpos 1874
+  ypos 1561
+ }
+push $N40627bf0
+ Dissolve {
+  inputs 2
+  name Dissolve1
+  xpos 1969
+  ypos 1593
+ }
+push $Nbaf08160
+ Merge2 {
+  inputs 2
+  operation max
+  output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  name Merge1
+  label "nvr go back"
+  xpos 1969
+  ypos 1631
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  name Blur1
+  xpos 1969
+  ypos 1669
+ }
+ ColorMatrix {
+  matrix {
+      {{parent.tocolor.r-parent.fromcolor.r} {matrix.6*matrix.5-matrix.3*matrix.8} {parent.lumavector.r}}
+      {{parent.tocolor.g-parent.fromcolor.g} {matrix.0*matrix.8-matrix.2*matrix.6} {parent.lumavector.g}}
+      {{parent.tocolor.b-parent.fromcolor.b} {matrix.0*matrix.5-matrix.3*matrix.2} {parent.lumavector.b}}
+    }
+  name ColorMatrix3
+  xpos 1969
+  ypos 1803
+ }
+ Premult {
+  name Premult5
+  xpos 1969
+  ypos 1829
+ }
+set N4186cd70 [stack 0]
+ Dot {
+  name Dot40
+  xpos 2161
+  ypos 1866
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 2127
+  ypos 2043
+ }
+push $N4186cd70
+push $Na0228360
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge9
+  xpos 1969
+  ypos 1872
+ }
+set N41881210 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.premult}}
+  name Switch2
+  xpos 2127
+  ypos 2098
+ }
+ Output {
+  name Output
+  xpos 2127
+  ypos 2154
+ }
+push $Na023fd70
+push 0
+push $N41881210
+ Viewer {
+  inputs 3
+  frame_range 1017-1127
+  center_fstop -1
+  name Viewer1
+  xpos -308
+  ypos 540
+ }
+end_group
+push $cut_paste_input
+Group {
+ name Unwarp
+ knobChanged "knob =  nuke.thisKnob()\n\nif knob.name() == 'useRef':\n    group = nuke.thisNode()\n    if knob.getValue():\n        group\['frame_ref'].setEnabled(True)\n        group\['label'].setValue('\[value frame_ref]')\n    else:\n        group\['frame_ref'].setEnabled(False)\n        group\['label'].setValue('----')\n"
+ tile_color 0xa17ea8ff
+ label ----
+ selected true
+ xpos 3573
+ ypos 1887
+ addUserKnob {20 Unwarp l "Unwarp V03"}
+ addUserKnob {41 useGPUIfAvailable l "Use GPU if available" -STARTLINE T BlinkScript3.useGPUIfAvailable}
+ addUserKnob {26 ""}
+ addUserKnob {22 createUnwarpVectors l "<b>Create UnwarpVectors</b>" T "def generateUVMapNode():\n    with nuke.root():\n        if '_uvm' not in nuke.layers():\n            nuke.Layer('_uvm', \n                       \['_uvm.x', '_uvm.y', '_uvm.a'])\n        for node in nuke.selectedNodes():\n            node\['selected'].setValue(False)\n        group = nuke.createNode('Group',\n                                'tile_color 0xa17ea8ff '\n                                'name UnwarpVectors'\n                                , inpanel=False)\n        with group:\n            nuke.createNode('Input'\n                            , inpanel=False)\n            generator = nuke.createNode('Expression',\n                'channel0 \{_uvm.x -_uvm.y -_uvm.a\} '\n                'expr0 (x+0.5)/width '\n                'channel1 \{-_uvm.x _uvm.y -_uvm.a\} '\n                'expr1 (y+0.5)/height '\n                'channel2 \{-_uvm.x -_uvm.y _uvm.a\} '\n                'expr2 1 '\n                , inpanel=False)\n            nuke.createNode('Output'\n                            , inpanel=False)\n        \n        group.addKnob(nuke.Tab_Knob('UnwarpVectors' , 'UnwarpVectors'))\n        group.addKnob(nuke.Text_Knob('help', '', 'Place it before transformation nodes'))\n\nif __name__ == '__main__':  \n    generateUVMapNode()\n" +STARTLINE}
+ addUserKnob {6 useRef l "use ref frame" +STARTLINE}
+ addUserKnob {3 frame_ref l "" -STARTLINE +DISABLED}
+ frame_ref 1001
+ addUserKnob {26 ""}
+ addUserKnob {41 filter T STMap6.filter}
+}
+ Input {
+  inputs 0
+  name vectors
+  xpos -121
+  ypos 2727
+  number 1
+ }
+add_layer {_uvm _uvm.x _uvm.y _uvm.a}
+ Shuffle {
+  in _uvm
+  alpha blue
+  name Shuffle2
+  xpos -121
+  ypos 2779
+ }
+ Unpremult {
+  name Unpremult3
+  xpos -121
+  ypos 2803
+ }
+ Crop {
+  box {{"min(bbox.x, 0)"} {"min(bbox.y, 0)"} {"max(bbox.r, width)"} {"max(bbox.t, height)"}}
+  name unionFormatAndBbox
+  xpos -121
+  ypos 2827
+ }
+ BlinkScript {
+  recompileCount 585
+  ProgramGroup 1
+  KernelDescription "2 \"invertVector\" iterate pixelWise 03f0bd8827d3a06192899476619afce767270fe2dca71300eb09c707ede8230e 2 \"UV\" Read Ranged2D \"DST\" Write Random 2 \"_format\" Int 2 AAAAAAAAAAA= \"jocelyn_tremblay_and_samuel_blouin_rodeofx_2019_2020\" Bool 1 AA== 2 \"_format\" 2 1 \"jocelyn_tremblay_and_samuel_blouin_rodeofx_2019_2020\" 1 1 5 \"UVrangeMin\" Int 2 1 AAAAAAAAAAA= \"UVrangeMax\" Int 2 1 AAAAAAAAAAA= \"_w\" Float 1 1 AAAAAA== \"_h\" Float 1 1 AAAAAA== \"_pixelSize\" Float 2 1 AAAAAAAAAAA="
+  kernelSource "kernel invertVector : ImageComputationKernel<ePixelWise>\n\{\n  Image<eRead, eAccessRanged2D, eEdgeClamped> UV; \n  Image<eWrite, eAccessRandom, eEdgeClamped> DST;\n  param:\n\tint2 _format;\n\tbool jocelyn_tremblay_and_samuel_blouin_rodeofx_2019_2020;\n\n  local:\n\tfloat _w;\n\tfloat _h;\n\tfloat2 _pixelSize;\n\n\n  void define() \{\n\n  \}\n\n  inline float lerp(float a, float b, float f)\{\n\treturn a + f * (b - a);\n  \}\n\n\n  inline float linInt(float a, float b, float f)\{\n\treturn (f-b)/(a-b);\n  \}\n\n  inline float2 linInt2D (float2 a, float2 b, float f)\{\n\tfloat p = linInt(a.x, b.x, f);\n\tfloat q = lerp(b.y, a.y, p);\n\treturn float2(p, q);\n  \}\n\n  inline float2 bilinInt(float2 c00, float2 c10, float2 c01, float2 c11, float tx, float ty ) \{ \n\tfloat2 a = linInt2D(c00, c10, tx);//float2(pourcent tx entre c00 et c10, position Y correspondant)\n\tfloat2 b = linInt2D(c01, c11, tx);//float2(pourcent tx entre c01 et c11, position Y correspondant)\n\tfloat c = linInt(a.y, b.y, ty);//pourcent ty entre a.y et b.y\n\tfloat d  = lerp(b.x, a.x, c);\n\treturn float2(d, c);\n  \}\n\n\n\n\n  void init() \{\n\t_w = _format.x;\n\t_h = _format.y;\n\tUV.setRange(-1, 0);\n\t_pixelSize = float2(1.f/_w, 1.f/_h);\n  \}\n\n  void process(int2 pos) \{\n\tfloat4 uv\[4];\n\tfloat2 uvs\[4];\n\tint2 uvsInt\[4];\n\n\tuv\[0] = UV(0, 0);\n\n\tif (uv\[0].w != 0.f)\{\n\n\t\tuv\[1] = UV(-1,  0),\n\t\tuv\[2] = UV( 0, -1),\n\t\tuv\[3] = UV(-1, -1);\n\t\t//checkValues\n\n\t\tuv\[1] = uv\[1].w != 0. ? uv\[1] : float4(uv\[1].x-_pixelSize.x, uv\[0].y, 0.f, 1.f);\n\t\tuv\[2] = uv\[2].w != 0. ? uv\[2] : float4(uv\[0].x, uv\[0].y-_pixelSize.y, 0.f, 1.f);\n\t\tuv\[3] = uv\[3].w != 0. ? uv\[3] : float4(uv\[1].x-_pixelSize.x, uv\[2].y-_pixelSize.y, 0.f, 1.f);\n\n\t\tuvs\[0] = float2(uv\[0].x*_w-.5, uv\[0].y*_h-.5),\n\t\t\tuvs\[1] = float2(uv\[1].x*_w-.5, uv\[1].y*_h-.5),\n\t\t\tuvs\[2] = float2(uv\[2].x*_w-.5, uv\[2].y*_h-.5),\n\t\t\tuvs\[3] = float2(uv\[3].x*_w-.5, uv\[3].y*_h-.5);\n\n\n\t\tuvsInt\[0] = int2(round(uvs\[0].x), round(uvs\[0].y)),\n\t\t\tuvsInt\[1] = int2(round(uvs\[1].x), round(uvs\[1].y)),\n\t\t\tuvsInt\[2] = int2(round(uvs\[2].x), round(uvs\[2].y)),\n\t\t\tuvsInt\[3] = int2(round(uvs\[3].x), round(uvs\[3].y));\n\n\t\tfloat2 pointPos = bilinInt(uvs\[3], uvs\[2], uvs\[1], uvs\[0], uvsInt\[0].x , uvsInt\[0].y);\n\t\t//checkValues\n\t\tpointPos = float2(pointPos.x != pointPos.x ? 0 : pointPos.x, pointPos.y != pointPos.y ? 0 : pointPos.y);\n\t\tpointPos = float2(min(max(pointPos.x, -1.f), 1.f), min(max(pointPos.y, -1.f), 1.f));\n\n\t\tDST(uvsInt\[0].x, uvsInt\[0].y) = float4((pos.x - pointPos.x + .5f)/_w, (pos.y - pointPos.y + .5f)/_h, 0.f, 1.f);\n\n\t\}\n\n     \}\n\};\n"
+  rebuild ""
+  invertVector__format {{width} {height}}
+  rebuild_finalise ""
+  maxTileLines 2
+  name BlinkScript3
+  xpos -121
+  ypos 2878
+ }
+ Blur {
+  size 2
+  name Blur2
+  xpos -121
+  ypos 2914
+ }
+ Unpremult {
+  name Unpremult2
+  xpos -121
+  ypos 2950
+ }
+ Dot {
+  name Dot13
+  note_font_size 40
+  xpos -87
+  ypos 3061
+ }
+set N42b199d0 [stack 0]
+ Dot {
+  name Dot1
+  note_font_size 40
+  xpos -87
+  ypos 3266
+ }
+push $N42b199d0
+ Dot {
+  name Dot3
+  note_font_size 40
+  xpos -197
+  ypos 3061
+ }
+ Dot {
+  name Dot2
+  note_font_size 40
+  xpos -197
+  ypos 3151
+ }
+set N42b27c60 [stack 0]
+ FrameHold {
+  first_frame {{parent.frame_ref}}
+  name FrameHold1
+  xpos -324
+  ypos 3142
+ }
+push $N42b27c60
+ MergeExpression {
+  inputs 2
+  expr0 "(Ar- Br)+(x+0.5)/width"
+  expr1 "(Ag- Bg)+(y+0.5)/height"
+  expr2 0
+  name MergeExpression1
+  xpos -231
+  ypos 3194
+ }
+ Switch {
+  inputs 2
+  which {{!parent.useRef}}
+  name Switch1
+  xpos -231
+  ypos 3263
+ }
+ Dot {
+  name Dot6
+  note_font_size 40
+  xpos -197
+  ypos 3337
+ }
+ Input {
+  inputs 0
+  name src
+  label "\n\n"
+  xpos -531
+  ypos 2714
+ }
+ STMap {
+  inputs 2
+  uv rgb
+  filter Keys
+  name STMap6
+  xpos -531
+  ypos 3328
+ }
+ Output {
+  name Output1
+  xpos -531
+  ypos 3980
+ }
+end_group
+push $cut_paste_input
+Group {
+ name simple_dasGrain
+ help "DasGrain makes re-graining as simple as clicking a few buttons.\n\nFollow the steps in the Help tab and you'll have a perfect regrain in no time!"
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() == 'box':\n    this_frame = nuke.frame()\n    n\['sample_frame'].setValue(this_frame)"
+ tile_color 0x7f7f7fff
+ selected true
+ xpos 3547
+ ypos 834
+ addUserKnob {20 Analyse_tab l Analyse}
+ addUserKnob {3 number_of_frames l "number of frames" t "Set the number of sample frames to be spread across the input range.\n\nMore frames lead to higher accuracy.\n\nIf there are particularly bright or dark frames, set them manually in the knob below.\n\nIf you want to set all sample frames manually, set this to 0 and add the frames in the knob below." +INVISIBLE}
+ number_of_frames 10
+ addUserKnob {1 additional_frames l "additional frames" t "Set additional frames like this:\n\n1001,1020,1053 (single frames)\n1020-1040 (frame ranges)\n1020-1040x4 (frame ranges with step)" +INVISIBLE}
+ addUserKnob {3 sample_count l "sample count" t "The samples are spread across the sample range (which gets calculated automatically) based on the AlexaV3LogC curve. This results in more samples in the dark areas and less samples in the brights.\n\nMore samples lead to a more detailed response curve (while the accuracy is limited by the quality of the degrain)." +INVISIBLE}
+ sample_count 20
+ addUserKnob {26 divider06_2 l "<strong>Analyse grain"}
+ addUserKnob {22 analyse l Analyse t "this is where the magic happens" T "import nuke\n\n\ndef _sample_count(this):\n\n    # returns the sample count\n\n    sample_count = int(this\['sample_count'].value())\n    if sample_count <= 0:\n        raise RuntimeError('Enter a sample count greater than 0')\n\n    else:\n\n        return sample_count\n\n\ndef _generate_frame_list(this):\n\n    # converts the frames submitted by the user into a list\n\n    frame_list = \[]\n\n    number_of_frames = int(this\['number_of_frames'].value())\n    additional_frames = this\['additional_frames'].value()\n\n    if number_of_frames < 1 and additional_frames is '':\n        raise RuntimeError('Either set the number of frames > 0\\nor define additional frames')\n\n    first_frame = max(this.input(1).firstFrame(),\n                      this.input(2).firstFrame())\n    last_frame = min(this.input(1).lastFrame(),\n                     this.input(2).lastFrame())\n\n    if number_of_frames > 0:\n        distance = (last_frame - first_frame) / (number_of_frames)\n        frame = first_frame + distance / 2\n\n        for x in xrange(number_of_frames):\n            int_frame = int(round(frame))\n            if int_frame not in frame_list:\n                frame_list.append(int_frame)\n            frame += distance\n\n    frange = nuke.FrameRanges(additional_frames.split(','))\n    for r in frange:\n        for f in r:\n            if f >= first_frame and f <= last_frame:\n                if f not in frame_list:\n                    frame_list.append(f)\n    return frame_list\n\n\ndef _setup_for_multiframe(frame_list):\n\n    # arranges all sample frames next to each other, starting at frame 0\n    # sets the frame number knob of the FrameBlend node\n\n    tw_lookup = nuke.toNode('TimeWarp1')\['lookup']\n    tw_lookup.clearAnimated()\n    tw_lookup.setAnimated()\n    anim_list = \[]\n    for n in range(0, len(frame_list)):\n        anim_list.append(nuke.AnimationKey(n, frame_list\[n]))\n    anim = tw_lookup.animation(0)\n    anim.addKey(anim_list)\n\n    fb = nuke.toNode('FrameBlend1')\n    fb\['numframes'].setValue(len(frame_list))\n\n\ndef _generate_sample_list(\n    sample_count,\n    sample_range,\n    sample_radius\n    ):\n\n    # generate a list of sample values spread equally between the\n    # min and max values of the sample range\n\n    sample_list = \[]\n    for item in range(0, sample_count):\n        sample_list.append(float(item) / sample_count\n                           * (sample_range\[1] - sample_range\[0])\n                           + sample_range\[0] + sample_radius)\n    return sample_list\n\n\ndef _get_sample_range(\n    channel,\n    channel_list,\n    frame_list\n    ):\n\n    # samples the minimum and maximum values of the given frame range and\n    # sets the sample range to those values\n\n    TimeWarp_disable = nuke.toNode('TimeWarp1')\['disable']\n    CurveTool = nuke.toNode('CurveTool_Range')\n    min_knob = CurveTool\['minlumapixvalue']\n    max_knob = CurveTool\['maxlumapixvalue']\n\n    if channel is 'red':\n        TimeWarp_disable.setValue(False)\n\n        min_knob.clearAnimated()\n        max_knob.clearAnimated()\n\n        min_knob.setAnimated()\n        max_knob.setAnimated()\n\n        nuke.execute(CurveTool, 0, len(frame_list) - 1)\n\n    min_list = \[]\n    max_list = \[]\n\n    index = channel_list.index(channel)\n    for key in min_knob.animation(index).keys():\n        min_list.append(key.y)\n\n    for key in max_knob.animation(index).keys():\n        max_list.append(key.y)\n\n    min_value = min(min_list)\n    max_value = max(max_list)\n\n    if channel is 'blue':\n        TimeWarp_disable.setValue(True) #hopefully prevents slowing down the comp\n\n        min_knob.clearAnimated()\n        max_knob.clearAnimated()\n        CurveTool\['minlumapixdata'].clearAnimated()\n        CurveTool\['maxlumapixdata'].clearAnimated()\n\n    return \[min_value, max_value]\n\n\ndef _log2lin(value):\n\n    # converts values from AlexaV3LogC to linear\n\n    if value > 5.367655 * 0.010591 + 0.092809:\n        new_value = (10.0 ** ((value - 0.385537) / 0.247190) - 0.052272) / 5.555556\n    else:\n        new_value = (value - 0.092809) / 5.367655\n    return new_value\n\n\ndef _sample_it(\n    Keyer,\n    CurveTool,\n    frame_list,\n    channel_list,\n    channel,\n    sample,\n    sample_radius,\n    ):\n\n    # analyse the grain level per channel and sample value in the sample range\n\n    min = str(sample - sample_radius)\n    max = str(sample + sample_radius)\n    Keyer\['temp_expr0'].setValue(min)\n    Keyer\['temp_expr1'].setValue(max)\n\n    intensity_knob = CurveTool\['intensitydata']\n    intensity_knob.clearAnimated()\n    intensity_knob.setAnimated()\n\n    nuke.execute(CurveTool, len(frame_list) - 1, len(frame_list) - 1)\n    sample_values = intensity_knob.value()\n\n    intensity_knob.clearAnimated()\n\n    if sample_values\[3] > 0:\n        value = sample_values\[0] / sample_values\[3]\n\n        if value > 0:\n            return value\n        else:\n\n            return None\n    else:\n\n        return None\n\n\ndef check_inputs(this):\n    if this.input(1) is None:\n        raise RuntimeError('no plate connected')\n    if this.input(2) is None:\n        raise RuntimeError('no degrained plate connected')\n\n    def format_to_tuple(g):\n        \"\"\"returns (1024, 786, 2.0)\n        \"\"\"\n        return (g.format().width(), g.format().height(), g.format().pixelAspect())\n\n    format_set = set(\[\n        format_to_tuple(this.input(1)),\n        format_to_tuple(this.input(2)),\n        ])\n    if len(format_set) != 1:\n        raise RuntimeError(\"Format missmatch: Make sure the formats of plate and degrained plate match.\")\n\ndef start():\n\n    # let's do this!\n\n    this = nuke.thisNode()\n\n    check_inputs(this)\n\n    with this:\n        frame_list = _generate_frame_list(this)\n        _setup_for_multiframe(frame_list)\n        sample_count = _sample_count(this)\n\n        blank = 'bWFzdGVyIHt9CiAgICAgICAgcmVkIHtjdXJ2ZX0KICAgICAgICBncmVlbiB7Y3VydmV9CiAgICAgICAgYmx1ZSB7Y3VydmV9CiAgICAgICAgYWxwaGEge30='.decode(\"base64\")\n\n        lut = nuke.toNode('ColorLookup')\['lut']\n        lut.fromScript(blank)\n\n        channel_list = \['red', 'green', 'blue']\n\n        Keyer = nuke.toNode('Expression2')\n        Copy = nuke.toNode('Copy2')\n\n        CurveTool = nuke.toNode('CurveTool')\n\n        task = nuke.ProgressTask('Analysing...')\n        step = 100.0 / 3 / sample_count\n        progress = step\n\n        TimeWarp_disable = nuke.toNode('TimeWarp2')\['disable']\n        FrameBlend_disable = nuke.toNode('FrameBlend1')\['disable']\n\n        TimeWarp_disable.setValue(False)\n        FrameBlend_disable.setValue(False)\n\n        for channel in channel_list:\n            Copy\['from0'].setValue('rgba.\{\}'.format(channel))\n\n            sample_range = _get_sample_range(channel, channel_list, frame_list)\n            sample_radius = (sample_range\[1] - sample_range\[0]) / sample_count / 2\n            sample_list = _generate_sample_list(sample_count, sample_range, sample_radius)\n\n            for sample in sample_list:\n                if task.isCancelled():\n                    return\n\n                task.setProgress(int(progress))\n                task.setMessage('\{\} channel at \{\}'.format(channel, round(_log2lin(sample), 2)))\n\n                value = _sample_it(\n                    Keyer,\n                    CurveTool,\n                    frame_list,\n                    channel_list,\n                    channel,\n                    sample,\n                    sample_radius,\n                    )\n\n                if value is not None:\n                    lut.setValueAt(value, _log2lin(sample),\n                            channel_list.index(channel) + 1)\n\n                progress += step\n\n        tw_lookup = nuke.toNode('TimeWarp1')\['lookup']\n        tw_lookup.clearAnimated()\n        TimeWarp_disable.setValue(True) #hopefully prevents slowing down the comp\n        FrameBlend_disable.setValue(True) #hopefully prevents slowing down the comp\n\n        del task\n\n\nstart()\n" +STARTLINE}
+ addUserKnob {26 spacer07_3 l "" +STARTLINE T " "}
+ addUserKnob {26 divider03 l " " +INVISIBLE}
+ addUserKnob {41 maskChannelMask l "analysis mask" +INVISIBLE T ChannelMerge1.A}
+ addUserKnob {6 invert_1 l invert -STARTLINE +INVISIBLE}
+ addUserKnob {26 divider06 l <strong>Scatter}
+ addUserKnob {6 scatter l activate t "Activates the scatter function. It generates a new grain based on the grain in the sample box using a Voronoi noise." +STARTLINE}
+ scatter true
+ addUserKnob {15 box l "sample box" t "Define an area that is used as a source for the scatter function. The grain in this area should be as even as possible, without any visible plate detail."}
+ box {1927.900024 828.4000092 2090.900024 989.1999664}
+ addUserKnob {3 sample_frame l "sample frame" t "The frame at which the grain is being sampled. Is set automatically once the sample box is changed." +DISABLED}
+ sample_frame 1035
+ addUserKnob {26 spacer07 l "" +STARTLINE T " "}
+ addUserKnob {26 spacer07_1 l "" +STARTLINE T " "}
+ addUserKnob {26 divider06_1 l "<strong>Mask grain"}
+ addUserKnob {41 maskChannelMask_1 l "replace mask" T Merge9.maskChannelMask}
+ addUserKnob {41 invert_mask_1 l invert -STARTLINE T Merge9.invert_mask}
+ addUserKnob {26 spacer07_2 l "" +STARTLINE T " "}
+ addUserKnob {26 divider06_1_1 l "<strong>Output view"}
+ addUserKnob {41 output t "<strong>regrained comp</strong> it is what it sais\n\n<strong>original grain</strong> plate minus degrained plate\n<strong>normalised grain</strong> check if the normalisation worked. It should be as even as possible. This is what you want to output if you want to prerender a grain plate. Later you can plug it into the <i>external grain</i> input of another DasGrain\n<strong>adapted grain</strong> check if the adaptation worked. Output this if you want to further manipulate the grain (who knows what the sup is gonna come up with...). After simply plus it to your comp.\n<strong>grain QC</strong> check if voronoi seams are visible (-> edgeblend), or the scattered grain looks different to the original plate grain (-> maybe bad sample area or wrong luminance degrain amount)" T Output.output}
+ addUserKnob {20 Adjust_tab l Adjust +INVISIBLE}
+ addUserKnob {41 output_1 l output t "<strong>regrained comp</strong> it is what it sais\n\n<strong>original grain</strong> plate minus degrained plate\n<strong>normalised grain</strong> check if the normalisation worked. It should be as even as possible. This is what you want to output if you want to prerender a grain plate. Later you can plug it into the <i>external grain</i> input of another DasGrain\n<strong>adapted grain</strong> check if the adaptation worked. Output this if you want to further manipulate the grain (who knows what the sup is gonna come up with...). After simply plus it to your comp.\n<strong>grain QC</strong> check if voronoi seams are visible (-> edgeblend), or the scattered grain looks different to the original plate grain (-> maybe bad sample area or wrong luminance degrain amount)" +INVISIBLE T Output.output}
+ addUserKnob {26 spacer03_2 l " " T " "}
+ addUserKnob {26 divider04 l <strong>Adjust}
+ addUserKnob {22 whatsthis l "What am I looking at?" T "nuke.message(\"In the RGB channels are the sampled grain response curves. Their quality depends entirely on the quality of the degrain. If the curves look wrong, try to improve the degrain first. If they still look wrong and the resulting regrain doesn't work well enough, you can try to improve the curves here. You can also extend the curves if the comp has values that don't exist in the plate. Don't touch the master curve though.\\n\\nNote: Slope of curves should always be positive (always going up ↗)\")" +STARTLINE}
+ addUserKnob {41 lut l "" +STARTLINE T ColorLookup.lut}
+ addUserKnob {20 Help_tab l Help}
+ addUserKnob {26 basic_setup l "" +STARTLINE T "<font size=\"5\">Basic setup</font>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 explanation l "" +STARTLINE T "<strong>Bold</strong> steps are always necessary"}
+ addUserKnob {26 steps l "" +STARTLINE T "<br><strong>1. Connect <i>plate</i>, <i>degrained plate</i> and <i>comp</i>.</strong><br><strong>2. Press the <i>Analyse</i> button.</strong><br><strong>3. Move the <i>sample box</i> to an area without any plate detail (flattest area possible).</strong><br>"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x7f7f7fff
+  label "normalise grain"
+  note_font_size 30
+  xpos 280
+  ypos 1470
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode11
+  tile_color 0x7f7f7fff
+  label "add grain"
+  note_font_size 30
+  xpos 830
+  ypos 2574
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode13
+  tile_color 0x7f7f7fff
+  label scatter
+  note_font_size 30
+  xpos -50
+  ypos 1830
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode14
+  tile_color 0x7f7f7fff
+  label "analyse grain"
+  note_font_size 30
+  xpos -159
+  ypos 606
+  bdwidth 319
+  bdheight 720
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7f7f7fff
+  label "grain response curve"
+  note_font_size 30
+  xpos 610
+  ypos 2382
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x7f7f7fff
+  label QC
+  note_font_size 30
+  xpos 1050
+  ypos 2862
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x7f7f7fff
+  label "grain response curve"
+  note_font_size 30
+  xpos 610
+  ypos 1230
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x7f7f7fff
+  label "adapt grain"
+  note_font_size 30
+  xpos 280
+  ypos 2382
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x7f7f7fff
+  label "sample range"
+  note_font_size 30
+  xpos -490
+  ypos 606
+  bdwidth 320
+  bdheight 160
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x7f7f7fff
+  label "luminance level"
+  note_font_size 30
+  xpos 280
+  ypos -282
+  bdwidth 760
+  bdheight 685
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0x7f7f7fff
+  label "original grain"
+  note_font_size 30
+  xpos 280
+  ypos 606
+  bdwidth 320
+  bdheight 110
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x7f7f7fff
+  label replace
+  note_font_size 30
+  xpos 60
+  ypos 1999
+  bdwidth 540
+  bdheight 226
+ }
+ Input {
+  inputs 0
+  name mask
+  label "\[value number]"
+  note_font_size 30
+  xpos 1170
+  ypos -680
+  number 3
+ }
+ Dot {
+  name Dot39
+  xpos 1204
+  ypos 258
+ }
+set Nb9268b80 [stack 0]
+ Dot {
+  name Dot26
+  xpos 1204
+  ypos 1074
+ }
+set Nb926d740 [stack 0]
+ Dot {
+  name Dot38
+  xpos 1204
+  ypos 1650
+ }
+ Dot {
+  name Dot37
+  xpos 544
+  ypos 1650
+ }
+ Dot {
+  name Dot22
+  xpos 544
+  ypos 2079
+ }
+set Nb927bb30 [stack 0]
+ Dot {
+  name Dot20
+  xpos 544
+  ypos 2199
+ }
+push $Nb927bb30
+ Dot {
+  name Dot17
+  xpos 434
+  ypos 2079
+ }
+set Nb9285290 [stack 0]
+ Dot {
+  name Dot13
+  xpos 214
+  ypos 2079
+ }
+ Input {
+  inputs 0
+  name DEGRAINED_PLATE
+  label "\[value number]"
+  note_font_size 30
+  xpos 730
+  ypos -680
+  number 2
+ }
+ Dot {
+  name Dot9
+  xpos 764
+  ypos -390
+ }
+set Nb92935a0 [stack 0]
+ Dot {
+  name Dot28
+  xpos 764
+  ypos -198
+ }
+set Nb9298230 [stack 0]
+ Dot {
+  name Dot32
+  xpos 764
+  ypos 234
+ }
+set Nb929cd80 [stack 0]
+push $Nb9298230
+ Dot {
+  name Dot27
+  xpos 624
+  ypos -198
+ }
+ Colorspace {
+  colorspace_out YCbCr
+  name Colorspace1
+  xpos 590
+  ypos -130
+ }
+ Dot {
+  name Dot7
+  xpos 624
+  ypos -54
+ }
+set Nb92bf1d0 [stack 0]
+ Input {
+  inputs 0
+  name PLATE
+  label "\[value number]"
+  note_font_size 30
+  xpos 290
+  ypos -680
+  number 1
+ }
+ Dot {
+  name Dot29
+  xpos 324
+  ypos -198
+ }
+set Nb92c8810 [stack 0]
+ Dot {
+  name Dot6
+  xpos 464
+  ypos -198
+ }
+ Colorspace {
+  colorspace_out YCbCr
+  name Colorspace2
+  xpos 430
+  ypos -130
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge4
+  xpos 430
+  ypos -58
+ }
+ Multiply {
+  channels rgb
+  value {0 0 0 0}
+  name Multiply6
+  xpos 430
+  ypos 14
+ }
+ Dot {
+  name Dot31
+  xpos 464
+  ypos 90
+ }
+push $Nb92bf1d0
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge5
+  xpos 590
+  ypos 86
+ }
+ Colorspace {
+  colorspace_in YCbCr
+  name Colorspace3
+  xpos 590
+  ypos 158
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge6
+  xpos 590
+  ypos 230
+ }
+ Dot {
+  name Dot35
+  xpos 624
+  ypos 306
+ }
+set Nb9384b40 [stack 0]
+push $Nb929cd80
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge7
+  xpos 730
+  ypos 302
+  disable {{Multiply6.value.r==0}}
+ }
+ Dot {
+  name Dot2
+  xpos 764
+  ypos 522
+ }
+set Nb9399de0 [stack 0]
+ ColorLookup {
+  channels rgb
+  lut {master {}
+    red {curve x0.003231447423 2.402168782e-05 x0.01130026486 0.001514373868 x0.02157293446 0.001921673913 x0.03694129363 0.002330189621 x0.05993301794 0.002697915472 x0.09432963282 0.002810180179 x0.145788461 0.003123351106 x0.2227730751 0.003449498583 x0.3379454017 0.004007499962 x0.5102481842 0.004799854814 x0.7680205703 0.006120748677 x1.153659225 0.007797014762 x1.730591178 0.0104344498 x2.593706369 0.01292320292 x3.884964228 0.01638249946 x5.816741467 0.0247626419 x8.706763268 0.03460329265 x13.03036118 0.03383222585 x19.4986515 0.04926739308 x29.17549133 0.08556506778}
+    green {curve x0.003445965471 2.154679571e-05 x0.01157242619 0.0008727833908 x0.02205333859 0.001135647289 x0.03776982054 0.001252596094 x0.06133722141 0.001467464134 x0.09667733312 0.001719070075 x0.149671033 0.001898814751 x0.2291368693 0.001983842875 x0.3482985795 0.002473565528 x0.5269856453 0.002960353744 x0.7949329019 0.003900176534 x1.196728826 0.005038739354 x1.799235582 0.006357671091 x2.702714682 0.01063912234 x4.057512283 0.0158646357 x6.089076996 0.01523641732 x9.13547802 0.02113675899 x13.7036581 0.03435032924 x20.55379868 0.04081876785 x30.82581902 0.08126669822}
+    blue {curve x0.002487200079 2.936754839e-05 x0.01036077086 0.001596078009 x0.01990017109 0.002019890261 x0.03403957188 0.002508769444 x0.05500014499 0.002719657274 x0.08607258648 0.003010246901 x0.1321350783 0.003418609292 x0.2004192024 0.003983512547 x0.3016451299 0.00468924068 x0.4517048299 0.005791733072 x0.6741567254 0.007417830278 x1.003924608 0.01027411437 x1.492780089 0.01265845208 x2.217470884 0.01503628186 x3.291769028 0.02069287919 x4.884333611 0.0346595622 x7.245187759 0.03751663131 x10.74497223 0.03835420806 x15.93313408 0.05352713078 x23.62418556 0.08627795668}
+    alpha {}}
+  name ColorLookup
+  xpos 730
+  ypos 1304
+ }
+ set Cb939e910 [stack 0]
+ Dot {
+  name Dot24
+  xpos 764
+  ypos 1554
+ }
+ Expression {
+  temp_name0 target
+  temp_expr0 .01
+  expr0 target/r
+  expr1 target/g
+  expr2 target/b
+  channel3 none
+  name Expression
+  xpos 400
+  ypos 1550
+ }
+push $Nb9399de0
+ Dot {
+  name Dot30
+  xpos 544
+  ypos 690
+ }
+push $Nb92c8810
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge27
+  xpos 290
+  ypos 686
+  bookmark true
+ }
+ Dot {
+  name Dot3
+  xpos 324
+  ypos 786
+ }
+set Nb93d9bc0 [stack 0]
+ Dot {
+  name Dot33
+  xpos 324
+  ypos 1386
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge2
+  xpos 290
+  ypos 1550
+ }
+ Dot {
+  name Dot15
+  xpos 324
+  ypos 1650
+ }
+set Nb93f3910 [stack 0]
+ Dot {
+  name Dot25
+  xpos 104
+  ypos 1650
+ }
+ Group {
+  name VoronoiScatter
+  xpos 70
+  ypos 1910
+  disable {{!parent.scatter}}
+  addUserKnob {20 User}
+  addUserKnob {15 box}
+  box {{parent.box} {parent.box} {parent.box} {parent.box}}
+  addUserKnob {3 sample_frame l "sample frame"}
+  sample_frame {{parent.sample_frame}}
+  addUserKnob {7 cell_size l "cell size" R 0 100}
+  cell_size {{parent.cell_size}}
+  addUserKnob {6 overlay_pattern l "overlay pattern" -STARTLINE}
+  overlay_pattern {{parent.overlay}}
+  addUserKnob {3 edge_blend_size l "edge blend size"}
+  edge_blend_size {{parent.edge_blend_size}}
+  addUserKnob {7 amplitude R 0 100}
+  amplitude {{parent.amplitude}}
+  addUserKnob {7 frequency R 0 100}
+  frequency {{parent.frequency}}
+  addUserKnob {41 VoroNoise_Seed l Seed T VoroNoise.VoroNoise_Seed}
+ }
+  Reformat {
+   inputs 0
+   type "to box"
+   box_width {{Input1.width}}
+   box_height {{Input1.height}}
+   box_fixed true
+   box_pixel_aspect {{Input1.pixel_aspect}}
+   resize distort
+   center false
+   black_outside true
+   name Reformat1
+   xpos 510
+   ypos -658
+  }
+  Dot {
+   name Dot6
+   xpos 544
+   ypos -606
+  }
+set Nb8956670 [stack 0]
+  Dot {
+   name Dot7
+   xpos 874
+   ypos -606
+  }
+  Noise {
+   output {rgba.red -rgba.green -rgba.blue none}
+   replace true
+   size {{parent.frequency} {size.0*pixel_aspect}}
+   zoffset {{x+1000}}
+   nyquist false
+   gamma 1
+   center {960 453.5}
+   name Noise1
+   xpos 840
+   ypos -514
+  }
+  Noise {
+   output {-rgba.red rgba.green -rgba.blue none}
+   replace true
+   size {{parent.Noise1.size} {parent.Noise1.size}}
+   zoffset {{x}}
+   gamma 1
+   center {960 453.5}
+   name Noise2
+   xpos 840
+   ypos -466
+  }
+  Clamp {
+   name Clamp1
+   xpos 840
+   ypos -424
+  }
+  Dot {
+   name Dot11
+   xpos 874
+   ypos -366
+  }
+push $Nb8956670
+  BlinkScript {
+   kernelSourceFile C:/Users/fab/Downloads/voronoi.blink
+   recompileCount 91
+   ProgramGroup 1
+   KernelDescription "2 \"VoroNoise\" iterate pixelWise c117be128a07c11b6d82fd34148d66b3bcac41976ec9c2082affe38e890c2c0f 2 \"src\" Read Point \"dst\" Write Point 6 \"Frequency\" Float 1 AABIQg== \"Seed\" Int 1 AAAAAA== \"aspect ratio\" Float 1 AACAPw== \"width\" Int 1 AAAAAA== \"height\" Int 1 AAAAAA== \"Randomness\" Float 1 AAAAPw== 6 \"frequency\" 1 1 \"seed\" 1 1 \"aspect_ratio\" 1 1 \"width\" 1 1 \"height\" 1 1 \"randomness\" 1 1 0"
+   kernelSource "// Voronoi.blink\n// A test implementation of libNoise's Voronoi generator using Blink\n// Ivan Busquets - August 2013\n// Modified for DasGrain by Fabian Holtz - April 2019\n\n#define X_NOISE_GEN  1619\n#define Y_NOISE_GEN  31337\n#define Z_NOISE_GEN  6971\n#define SEED_NOISE_GEN  1013\n#define SQRT_3 1.73205081\n\ninline int IntValueNoise3D (int x, int y, int z, int seed)\n\{\n  // All constants are primes and must remain prime in order for this noise\n  // function to work correctly.\n  int n = (\n      X_NOISE_GEN    * x\n    + Y_NOISE_GEN    * y\n    + Z_NOISE_GEN    * z\n    + SEED_NOISE_GEN * seed)\n    & 0x7fffffff;\n  n = (n >> 13) ^ n;\n  return (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff;\n\}\n\ninline float ValueNoise3D (int x, int y, int z, int seed)\n\{\n  return 1.0 - ((float)IntValueNoise3D (x, y, z, seed) / 1073741824.0);\n\}\n\nkernel VoroNoise : ImageComputationKernel<ePixelWise>\n\{\n  Image<eRead> src;\n  Image<eWrite, eAccessPoint> dst;\n\nparam:\n  float frequency;\n  int seed;\n  float aspect_ratio;\n  int width;\n  int height;\n  float randomness;\n\n\n  void define() \{\n    defineParam(frequency, \"Frequency\", 50.0f);\n    defineParam(aspect_ratio, \"aspect ratio\", 1.0f);\n    defineParam(seed, \"Seed\", 0);\n    defineParam(randomness, \"Randomness\", 0.5f);\n  \}\n\n\n\n\n  void process(int2 pos) \{\n   float x = pos.x * aspect_ratio * frequency / width;\n   float y = pos.y * frequency / width;\n   int xInt = (x > 0.0) ? x : x - 1;\n   int yInt = (y > 0.0) ? y : y - 1;\n\n\n    float minDist = 2147483647.0;\n    float xCandidate = 0;\n    float yCandidate = 0;\n\n    float dist;\n\nfor (int yCur = yInt - 2; yCur <= yInt + 2; yCur++) \{\n      for (int xCur = xInt - 2; xCur <= xInt + 2; xCur++) \{\n\n        // Calculate the position and distance to the seed point inside of\n        // this unit cube. Limited by the randomness value\n        float xPos = xCur + (ValueNoise3D (xCur, yCur, 0, seed    ) + 1 ) * randomness + (1-randomness) - 1;\n        float yPos = yCur + (ValueNoise3D (xCur, yCur, 0, seed + 1) + 1 ) * randomness + (1-randomness) - 1;\n\n        float xDist = xPos - x;\n        float yDist = yPos - y;\n\n        dist = pow(xDist, 2) + pow(yDist, 2);\n        if (dist < minDist) \{\n          // This seed point is closer to any others found so far, so record\n          // this seed point.\n          minDist = dist;\n          xCandidate = xPos;\n          yCandidate = yPos;\n\t\}\n    \}\n\}\n\n    SampleType(dst) sample(0.0f);\n\n    sample.x = xCandidate / aspect_ratio / frequency;\n    sample.y = yCandidate / height * width / frequency;\n    sample.z = 0;\n\n    dst() = sample;\n\}\n\};"
+   rebuild ""
+   VoroNoise_Frequency {{width/parent.cell_size}}
+   VoroNoise_Seed {{x*5}}
+   "VoroNoise_aspect ratio" {{pixel_aspect}}
+   VoroNoise_width {{width}}
+   VoroNoise_height {{height}}
+   rebuild_finalise ""
+   name VoroNoise
+   xpos 620
+   ypos -520
+  }
+  Copy {
+   inputs 2
+   from0 rgba.red
+   to0 forward.u
+   from1 rgba.green
+   to1 forward.v
+   name Copy1
+   xpos 620
+   ypos -382
+   disable {{parent.amplitude==0}}
+  }
+  IDistort {
+   uv forward
+   uv_offset 0.5
+   uv_scale {{parent.amplitude} {uv_scale.w*pixel_aspect}}
+   filter Impulse
+   name IDistort1
+   xpos 620
+   ypos -280
+   disable {{parent.amplitude==0}}
+  }
+  Dot {
+   name Dot5
+   xpos 654
+   ypos -174
+  }
+set Nb89d0000 [stack 0]
+  Dot {
+   name Dot12
+   xpos 764
+   ypos -174
+  }
+set Nb89d4b50 [stack 0]
+  Dot {
+   name Dot13
+   xpos 764
+   ypos 114
+  }
+push $Nb89d4b50
+  Dot {
+   name Dot8
+   xpos 874
+   ypos -174
+  }
+  Blur {
+   channels rgb
+   size {{pixel_aspect} 1}
+   name Blur1
+   label "\[value size]"
+   xpos 840
+   ypos -88
+  }
+  Difference {
+   inputs 2
+   name Difference2
+   xpos 840
+   ypos 104
+  }
+  Expression {
+   channel0 {none none none rgba.alpha}
+   expr0 a>1e-9
+   channel1 none
+   channel2 none
+   channel3 none
+   name Expression2
+   xpos 840
+   ypos 206
+  }
+  Shuffle {
+   red alpha
+   green alpha
+   blue alpha
+   name Shuffle1
+   label "\[value in]:\[value out]"
+   xpos 840
+   ypos 296
+  }
+  Dot {
+   name Dot4
+   xpos 874
+   ypos 834
+  }
+push $Nb89d0000
+  NoTimeBlur {
+   name NoTimeBlur3
+   xpos 620
+   ypos -82
+  }
+  Transform {
+   translate {{floor((x*size)%1*(size))-int(size/2) x1082 0} {floor(x%1*(size))-int(size/2) x1082 0}}
+   center {1064 714}
+   filter Impulse
+   black_outside false
+   name Transform1
+   xpos 620
+   ypos 14
+   disable {{parent.edge_blend_size<1}}
+   addUserKnob {20 User}
+   addUserKnob {3 size}
+   size {{parent.edge_blend_size+1}}
+  }
+  Dot {
+   name Dot9
+   xpos 654
+   ypos 114
+  }
+set N8a0a7020 [stack 0]
+push $Nb8956670
+  Expression {
+   expr0 (x+.5)/width
+   expr1 (y+.5)/height
+   expr2 0
+   name STMapGenerator
+   xpos 400
+   ypos -514
+  }
+  NoTimeBlur {
+   name NoTimeBlur2
+   xpos 400
+   ypos -82
+  }
+  Merge2 {
+   inputs 2
+   operation from
+   Achannels {rgba.red rgba.green -rgba.blue none}
+   Bchannels {rgba.red rgba.green -rgba.blue none}
+   output {rgba.red rgba.green -rgba.blue none}
+   name Merge2
+   xpos 400
+   ypos 110
+  }
+  Dot {
+   name Dot10
+   xpos 434
+   ypos 282
+  }
+push $N8a0a7020
+  Expression {
+   expr0 random(r*1000000,0)*(maxx-minx)+minx
+   expr1 random(g*1000000,0)*(maxy-miny)+miny
+   channel2 none
+   channel3 none
+   name Expression3
+   selected true
+   xpos 620
+   ypos 182
+   addUserKnob {20 User}
+   addUserKnob {7 frequency R 0 100}
+   frequency {{parent.parent.cell_size}}
+   addUserKnob {7 multiplier R 0 3}
+   multiplier 0.5
+   addUserKnob {15 shrink}
+   shrink {{frequency*multiplier+ceil(parent.edge_blend_size/2)+IDistort1.uv_scale.w/2} {frequency*multiplier+ceil(parent.edge_blend_size/2)+IDistort1.uv_scale.h/2} {frequency*multiplier+floor(parent.edge_blend_size/2)+IDistort1.uv_scale.w/2} {frequency*multiplier+floor(parent.edge_blend_size/2)+IDistort1.uv_scale.h/2}}
+   addUserKnob {26 ""}
+   addUserKnob {7 minx}
+   minx {{(parent.box.x+shrink.x+.5)/width}}
+   addUserKnob {7 maxx}
+   maxx {{(parent.box.r-shrink.r+.5)/width}}
+   addUserKnob {7 miny}
+   miny {{(parent.box.y+shrink.y+.5)/height}}
+   addUserKnob {7 maxy}
+   maxy {{(parent.box.t-shrink.t+.5)/height}}
+  }
+  Merge2 {
+   inputs 2
+   operation plus
+   Achannels {rgba.red rgba.green -rgba.blue none}
+   Bchannels {rgba.red rgba.green -rgba.blue none}
+   output {rgba.red rgba.green -rgba.blue none}
+   name Merge3
+   xpos 620
+   ypos 278
+  }
+  Expression {
+   expr0 r<minx?maxx-(minx-r):(r-minx)%(maxx-minx)+minx
+   expr1 g<miny?maxy-(miny-g):(g-miny)%(maxy-miny)+miny
+   channel2 none
+   channel3 none
+   name Expression7
+   xpos 620
+   ypos 350
+   addUserKnob {20 User}
+   addUserKnob {7 minx}
+   minx {{(parent.box.x+rint(x%1*parent.edge_blend_size)+.5)/width}}
+   addUserKnob {7 maxx}
+   maxx {{(parent.box.r+rint(x%1*parent.edge_blend_size)+.5)/width}}
+   addUserKnob {7 miny}
+   miny {{(parent.box.y+rint(x%1*parent.edge_blend_size)+.5)/height}}
+   addUserKnob {7 maxy}
+   maxy {{(parent.box.t+rint(x%1*parent.edge_blend_size)+.5)/height}}
+  }
+  Dot {
+   name Dot3
+   xpos 654
+   ypos 426
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos 180
+   ypos -664
+  }
+  FrameHold {
+   first_frame {{parent.sample_frame}}
+   name FrameHold1
+   xpos 180
+   ypos -184
+  }
+  NoTimeBlur {
+   name NoTimeBlur1
+   xpos 180
+   ypos -82
+  }
+  STMap {
+   inputs 2
+   channels rgb
+   uv rgb
+   filter Impulse
+   name STMap1
+   xpos 180
+   ypos 422
+  }
+set N8a122460 [stack 0]
+  TimeBlur {
+   divisions {{max(Transform1.size==1?2:pow2(Transform1.size),1)}}
+   shutter 1
+   shuttercustomoffset {{1/divisions/2}}
+   name TimeBlur1
+   xpos 180
+   ypos 518
+   disable {{parent.edge_blend_size<1}}
+  }
+set N8a12d390 [stack 0]
+push $N8a122460
+  Dot {
+   name Dot1
+   xpos -6
+   ypos 426
+  }
+  Difference {
+   inputs 2
+   name Difference1
+   xpos -40
+   ypos 512
+  }
+  Expression {
+   channel0 {none none none rgba.alpha}
+   expr0 a>1e-10
+   channel1 none
+   channel2 none
+   channel3 none
+   name Expression1
+   xpos -40
+   ypos 566
+  }
+  Blur {
+   channels alpha
+   size {{parent.parent.edge_blend_size}}
+   name Blur2
+   xpos -40
+   ypos 608
+  }
+  Grade {
+   channels alpha
+   blackpoint 0.5
+   white_clamp true
+   name Grade2
+   xpos -40
+   ypos 656
+  }
+  Dot {
+   name Dot2
+   xpos -6
+   ypos 738
+  }
+push $N8a12d390
+  Grade {
+   inputs 1+1
+   white 1.4
+   black_clamp false
+   name Grade1
+   xpos 180
+   ypos 734
+   disable {{parent.edge_blend_size<1}}
+  }
+  Merge2 {
+   inputs 2
+   Achannels rgb
+   Bchannels rgb
+   output rgb
+   name Merge1
+   xpos 180
+   ypos 830
+   disable {{!parent.overlay_pattern}}
+  }
+  Assert {
+   expression {{"Expression3.maxx>Expression3.minx && Expression3.maxy>Expression3.miny"}}
+   message "increase sample box size or decrease cell size"
+   name error
+   xpos 180
+   ypos 926
+  }
+  Output {
+   name Output1
+   xpos 180
+   ypos 1022
+  }
+ end_group
+ Multiply {
+  inputs 1+1
+  channels rgb
+  value 1.8
+  maskChannelMask {{{parent.Merge9.maskChannelMask}}}
+  invert_mask {{!Merge9.invert_mask}}
+  name Multiply7
+  xpos 70
+  ypos 2123
+  disable {{"!maskChannelMask || !\[exists parent.input3.name]"}}
+ }
+ Dot {
+  name Dot23
+  xpos 104
+  ypos 2199
+ }
+push $Nb9285290
+push $Nb93f3910
+ Multiply {
+  inputs 1+1
+  channels rgb
+  value 1.8
+  maskChannelMask {{{parent.Merge9.maskChannelMask}}}
+  invert_mask {{parent.Merge9.invert_mask}}
+  name Multiply2
+  xpos 290
+  ypos 2123
+  disable {{"!maskChannelMask || (!parent.scatter && !parent.external_grain)"}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation copy
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge9
+  xpos 290
+  ypos 2195
+  disable {{"!(parent.scatter || parent.external_grain)"}}
+ }
+ Dot {
+  name Dot11
+  xpos 324
+  ypos 2298
+ }
+set Nc4146380 [stack 0]
+push $Nb9268b80
+ Dot {
+  name Dot40
+  xpos 874
+  ypos 258
+ }
+push $Nb9384b40
+ Dot {
+  name Dot34
+  xpos 624
+  ypos 378
+ }
+ Multiply {
+  inputs 1+1
+  channels rgb
+  value 0
+  maskChannelMask -rgba.red
+  name Multiply1
+  xpos 840
+  ypos 374
+ }
+ Input {
+  inputs 0
+  name COMP
+  label "\[value number]"
+  note_font_size 30
+  xpos 950
+  ypos -680
+ }
+ Dot {
+  name Dot44
+  xpos 984
+  ypos -198
+ }
+set Nc4164dc0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge8
+  xpos 950
+  ypos 374
+  disable {{"Multiply6.value.r==0 || parent.fix_ghosting == 1"}}
+ }
+ Dot {
+  name Dot18
+  xpos 984
+  ypos 2466
+ }
+set Nc417a040 [stack 0]
+clone $Cb939e910 {
+  xpos 730
+  ypos 2462
+  selected false
+ }
+ Multiply {
+  channels rgb
+  value {{1/Expression.temp_expr0}}
+  name Multiply5
+  xpos 400
+  ypos 2462
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge1
+  xpos 290
+  ypos 2462
+ }
+ Dot {
+  name Dot8
+  xpos 324
+  ypos 2658
+ }
+push $Nc417a040
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge3
+  xpos 950
+  ypos 2654
+ }
+set Nc41af470 [stack 0]
+ Dot {
+  name Dot19
+  xpos 984
+  ypos 2802
+ }
+set Nc41bf8a0 [stack 0]
+ Dot {
+  name Dot41
+  xpos 1204
+  ypos 2802
+ }
+set Nc41c4460 [stack 0]
+ Dot {
+  name Dot36
+  xpos 1314
+  ypos 2802
+ }
+ Blur {
+  channels rgb
+  size 1
+  name Blur1
+  xpos 1280
+  ypos 2894
+ }
+push $Nc41c4460
+ Merge2 {
+  inputs 2
+  operation difference
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge10
+  xpos 1170
+  ypos 2894
+ }
+ Multiply {
+  channels rgb
+  value 50
+  name Multiply3
+  xpos 1170
+  ypos 2942
+ }
+ Dot {
+  name Dot43
+  xpos 1204
+  ypos 3042
+ }
+push $Nc4164dc0
+ Dot {
+  name Dot45
+  xpos 1424
+  ypos -198
+ }
+push $Nc41af470
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge11
+  xpos 1390
+  ypos 2654
+ }
+ Dot {
+  name Dot46
+  xpos 1424
+  ypos 3162
+ }
+push $Nc4146380
+ Dot {
+  name Dot14
+  xpos 104
+  ypos 2298
+ }
+ Dot {
+  name Dot12
+  xpos 104
+  ypos 3042
+ }
+push $Nb92935a0
+ Dot {
+  name Dot47
+  xpos -556
+  ypos -390
+ }
+push $Nb92c8810
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge12
+  xpos -590
+  ypos -202
+ }
+ Dot {
+  name Dot10
+  xpos -556
+  ypos 3162
+ }
+push $Nc41bf8a0
+ Switch {
+  inputs 5
+  which {{output}}
+  name Output
+  xpos 950
+  ypos 3296
+  addUserKnob {20 User}
+  addUserKnob {4 output M {"regrained comp" "original grain" "normalised grain" "adapted grain" "grain QC"}}
+ }
+ Output {
+  name Output1
+  xpos 950
+  ypos 3494
+ }
+push $Nb9399de0
+ Colorspace {
+  colorspace_out AlexaV3LogC
+  name Colorspace5
+  xpos 70
+  ypos 518
+ }
+ Clamp {
+  maximum_enable false
+  name Clamp2
+  xpos -40
+  ypos 512
+ }
+ Dot {
+  name Dot1
+  xpos -116
+  ypos 522
+ }
+set Ne811dce0 [stack 0]
+ Dot {
+  name Dot16
+  xpos -336
+  ypos 522
+ }
+ TimeWarp {
+  lookup 1033
+  time ""
+  filter nearest
+  name TimeWarp1
+  xpos -370
+  ypos 686
+  disable true
+ }
+ CurveTool {
+  operation "Max Luma Pixel"
+  ROI {0 0 {width} {height}}
+  autocropdata {512 389 1536 1167}
+  maxlumapixdata {436 639}
+  maxlumapixvalue {0.9209054708 0.9227970839 0.9127812386}
+  minlumapixdata {799 156}
+  minlumapixvalue {0.08961474895 0.08955843747 0.08690167964}
+  name CurveTool_Range
+  xpos -370
+  ypos 734
+ }
+push $Nb926d740
+ Invert {
+  name Invert2
+  xpos 180
+  ypos 1064
+  disable {{!parent.invert_1}}
+ }
+push $Nb93d9bc0
+ Dot {
+  name Dot5
+  xpos 104
+  ypos 786
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{Dot1.width}}
+  box_height {{Dot1.height}}
+  box_fixed true
+  box_pixel_aspect {{Dot1.pixel_aspect}}
+  name Reformat1
+  xpos -40
+  ypos 686
+ }
+ Dot {
+  name Dot42
+  xpos -6
+  ypos 786
+ }
+set Ne8161970 [stack 0]
+ Copy {
+  inputs 2
+  from0 {{{parent.Copy2.from0}}}
+  to0 rgba.red
+  name Copy3
+  xpos 70
+  ypos 848
+ }
+ Expression {
+  expr0 abs(r)
+  channel1 {none none none rgba.alpha}
+  expr1 r==0
+  channel2 none
+  channel3 none
+  name Expression4
+  xpos 70
+  ypos 926
+ }
+set Ne8174b90 [stack 0]
+push $Ne811dce0
+push $Ne8161970
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.red
+  name Copy2
+  xpos -150
+  ypos 848
+ }
+ Expression {
+  temp_name0 min
+  temp_expr0 0.888017717749
+  temp_name1 max
+  temp_expr1 0.930280327797
+  channel0 {none none none rgba.alpha}
+  expr0 "r>=min && r<=max"
+  channel1 none
+  channel2 none
+  channel3 none
+  name Expression2
+  xpos -150
+  ypos 926
+ }
+ Dot {
+  name Dot4
+  xpos -116
+  ypos 1002
+ }
+ ChannelMerge {
+  inputs 2
+  operation stencil
+  name ChannelMerge2
+  xpos -40
+  ypos 985
+ }
+push $Ne8174b90
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 70
+  ypos 992
+ }
+ ChannelMerge {
+  inputs 2
+  A -rgba.green
+  operation multiply
+  name ChannelMerge1
+  xpos 70
+  ypos 1057
+  disable {{!A}}
+ }
+ Premult {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  name Premult1
+  xpos 70
+  ypos 1142
+ }
+ TimeWarp {
+  lookup {{parent.TimeWarp1.lookup}}
+  time ""
+  filter nearest
+  name TimeWarp2
+  xpos 70
+  ypos 1190
+  disable true
+ }
+ FrameBlend {
+  channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  numframes 10
+  name FrameBlend1
+  xpos 70
+  ypos 1232
+  disable true
+ }
+ CurveTool {
+  avgframes 0
+  channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  ROI {0 0 {width} {height}}
+  autocropdata {512 389 1536 1167}
+  intensitydata {6.458101736e-05 0 0 0.0007485227959}
+  name CurveTool
+  xpos 70
+  ypos 1280
+ }
+end_group
